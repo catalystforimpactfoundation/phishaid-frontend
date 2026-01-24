@@ -142,3 +142,81 @@ body {
 .hidden {
   display: none;
 }
+
+/* =========================
+   Global Layout
+========================= */
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #f8f9fb;
+  color: #222;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  color: #0b3c5d;
+}
+
+p, li {
+  font-size: 16px;
+}
+
+hr {
+  margin: 20px 0;
+}
+
+/* =========================
+   Navigation Bar
+========================= */
+.navbar {
+  background-color: #0b3c5d;
+  padding: 14px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 18px;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Page Container
+========================= */
+.page-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 25px;
+  background: #ffffff;
+}
+
+/* =========================
+   Lists
+========================= */
+ul {
+  margin-left: 20px;
+}
+
+ol {
+  margin-left: 22px;
+}
+
+/* =========================
+   Footer
+========================= */
+footer {
+  margin-top: 40px;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+}
+
