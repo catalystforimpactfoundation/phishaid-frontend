@@ -37,6 +37,7 @@
   </p>
 </div>
 
+<!-- Checker UI -->
 <div class="checker">
   <input
     type="text"
@@ -46,19 +47,15 @@
   <button id="checkBtn">Check Website</button>
 </div>
 
-<div id="loading" class="hidden">Checking website...</div>
-
-<div id="result" class="hidden">
-  <h3 id="verdict"></h3>
-  <p id="score"></p>
-  <ul id="warnings"></ul>
+<!-- Loading Indicator -->
+<div id="loading" class="hidden">
+  Analyzing website…
 </div>
 
-<div id="loading" class="hidden">Analyzing website…</div>
-
-<div id="result" class="hidden">
-  <div id="verdict"></div>
-  <div id="score"></div>
+<!-- Result Box -->
+<div id="result" class="result-box hidden">
+  <h3 id="verdict"></h3>
+  <p id="score"></p>
   <ul id="warnings"></ul>
 </div>
 
@@ -66,6 +63,9 @@
   <hr>
   © 2026 PhishAID.online
 </footer>
+
+<!-- ✅ REQUIRED SCRIPT -->
+<script src="/js/app.js"></script>
 
 </body>
 </html>
