@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Methodology | PhishAID</title>
-<link rel="stylesheet" href="/assets/css/style.css">
+  <meta charset="UTF-8">
+  <title>Methodology | PhishAID</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
 <nav class="navbar">…</nav>
+<hr>
 
-<h1>Detection Methodology</h1>
+<div class="page-container">
+  <h1>Detection Methodology</h1>
 
-<h2>Overview</h2>
-<p>
-PhishAID evaluates URLs using a set of predefined security rules.
-Each rule checks for known phishing indicators.
-</p>
+  <p>
+    PhishAID evaluates URLs using a predefined set of security rules derived from
+    known phishing characteristics.
+  </p>
 
-<h2>Rule Categories</h2>
-<ul>
-<li>URL structure analysis</li>
-<li>IP-based URLs</li>
-<li>Suspicious keywords</li>
-<li>HTTPS & certificate checks</li>
-<li>Length and entropy analysis</li>
-</ul>
+  <h3>Rule Categories</h3>
+  <ul>
+    <li>URL lexical analysis</li>
+    <li>IP-based URLs</li>
+    <li>Suspicious keywords</li>
+    <li>HTTPS and certificate checks</li>
+    <li>URL length and entropy</li>
+  </ul>
 
-<h2>Scoring Mechanism</h2>
-<p>
-Each triggered rule contributes to a cumulative risk score.
-The final verdict is derived from the total score.
-</p>
-
-<h2>Explainability</h2>
-<p>
-Every verdict is accompanied by human-readable warnings,
-making the system suitable for academic interpretation.
-</p>
+  <p>
+    Each rule contributes to a cumulative score which determines the final verdict.
+  </p>
+</div>
 
 <footer><hr>© 2026 PhishAID.online</footer>
 </body>
