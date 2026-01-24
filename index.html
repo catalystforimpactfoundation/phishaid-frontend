@@ -43,7 +43,15 @@
     id="urlInput"
     placeholder="Enter website URL (e.g. https://example.com)"
   />
-  <button onclick="checkPhishing()">Check Website</button>
+  <button id="checkBtn">Check Website</button>
+</div>
+
+<div id="loading" class="hidden">Checking website...</div>
+
+<div id="result" class="hidden">
+  <h3 id="verdict"></h3>
+  <p id="score"></p>
+  <ul id="warnings"></ul>
 </div>
 
 <div id="loading" class="hidden">Analyzing website…</div>
