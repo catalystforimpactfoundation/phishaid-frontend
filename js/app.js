@@ -1,8 +1,8 @@
 // ===============================
-// PhishAID Frontend Logic
+// PhishAID Frontend Logic (FINAL)
 // ===============================
 
-// CHANGE THIS ONLY WHEN BACKEND IS PUBLIC
+// Backend API (keep this)
 const API_URL = "https://phishaid-api-1013270519404.asia-south1.run.app/check";
 
 // DOM elements
@@ -13,6 +13,11 @@ const resultBox = document.getElementById("result");
 const verdictEl = document.getElementById("verdict");
 const scoreEl = document.getElementById("score");
 const warningsEl = document.getElementById("warnings");
+
+// Safety check
+if (!button) {
+  console.error("Check button not found in DOM");
+}
 
 // Button click handler
 button.addEventListener("click", async () => {
@@ -29,9 +34,8 @@ button.addEventListener("click", async () => {
   warningsEl.innerHTML = "";
 
   try {
-    // Abort if request takes too long
     const controller = new AbortController();
-    setTimeout(() => controller.abort(), 10000);
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     const response = await fetch(API_URL, {
       method: "POST",
@@ -40,14 +44,17 @@ button.addEventListener("click", async () => {
       signal: controller.signal
     });
 
+    clearTimeout(timeoutId);
+
     if (!response.ok) {
-      throw new Error("Server returned an error");
+      throw new Error("Server returned error");
     }
 
     const data = await response.json();
     showResult(data);
 
   } catch (error) {
+    console.error(error);
     alert("Unable to analyze the website. Please try again later.");
   } finally {
     loading.classList.add("hidden");
@@ -58,14 +65,16 @@ button.addEventListener("click", async () => {
 function showResult(data) {
   resultBox.classList.remove("hidden");
 
-  if (data.verdict === "Legitimate") {
-    resultBox.className = "safe";
-  } else {
-    resultBox.className = "phishing";
-  }
+  // IMPORTANT: keep base class + verdict class
+  resultBox.className = "result-box";
+  resultBox.classList.add(
+    data.verdict === "Legitimate" ? "safe" : "phishing"
+  );
 
   verdictEl.textContent = `Verdict: ${data.verdict}`;
-  scoreEl.textContent = `Score: ${data.score}`;
+  scoreEl.textContent = `Risk Score: ${data.score}`;
+
+  warningsEl.innerHTML = "";
 
   if (!data.warnings || data.warnings.length === 0) {
     warningsEl.innerHTML = "<li>No phishing indicators found.</li>";
