@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>PhishAID – Check Websites for Phishing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="PhishAID checks websites for phishing using 30 security rules." />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <title>PhishAID | Rule-Based Phishing Detection</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-
 <body>
-  <header class="header">
-    <h1>PhishAID</h1>
-    <p>Instant phishing detection using 30 security rules</p>
-  </header>
 
-  <main class="container">
-    <section class="checker">
-      <input
-        type="text"
-        id="urlInput"
-        placeholder="Enter website URL (e.g. https://example.com)"
-      />
-      <button id="checkBtn">Check Website</button>
-    </section>
+<nav class="navbar">
+  <a href="/index.html">Home</a>
+  <a href="/about.html">About</a>
+  <a href="/problem-statement.html">Problem Statement</a>
+  <a href="/methodology.html">Methodology</a>
+  <a href="/architecture.html">Architecture</a>
+  <a href="/technical-stack.html">Technical Stack</a>
+  <a href="/rules.html">Rules</a>
+  <a href="/research.html">Research</a>
+  <a href="/presentation.html">Presentation</a>
+  <a href="/contact.html">Contact</a>
+</nav>
 
-    <section id="loading" class="hidden">
-      <p>🔍 Analyzing website security...</p>
-    </section>
+<hr>
 
-    <section id="result" class="hidden">
-      <h2 id="verdict"></h2>
-      <p id="score"></p>
-      <ul id="warnings"></ul>
-    </section>
+<div class="page-container">
+  <h1>PhishAID</h1>
+  <h3>Rule-Based Phishing Detection System</h3>
 
-    <section class="about">
-      <h3>How PhishAID Works</h3>
-      <p>
-        PhishAID analyzes websites using a rule-based security engine.
-        Each URL is checked against 30 phishing indicators such as HTTPS usage,
-        IP-based URLs, and suspicious patterns.
-      </p>
-    </section>
-  </main>
+  <p>
+    PhishAID is an academic cybersecurity project designed to identify phishing
+    websites using a transparent, rule-based detection approach.
+  </p>
 
-  <footer class="footer">
-    <p>© 2026 phishAID.online · Educational & Security Research Tool</p>
-  </footer>
+  <p>
+    Enter a website URL on this platform to evaluate potential phishing indicators
+    based on predefined security rules.
+  </p>
+</div>
 
-  <script src="js/app.js"></script>
+<footer>
+  <hr>
+  © 2026 PhishAID.online
+</footer>
+
 </body>
 </html>
