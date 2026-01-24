@@ -1,35 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Architecture | PhishAID</title>
-<link rel="stylesheet" href="/assets/css/style.css">
+  <meta charset="UTF-8">
+  <title>Architecture | PhishAID</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
 <nav class="navbar">…</nav>
+<hr>
 
-<h1>System Architecture</h1>
+<div class="page-container">
+  <h1>System Architecture</h1>
 
-<h2>High-Level Design</h2>
-<p>
-PhishAID follows a serverless, edge-hosted architecture.
-</p>
+  <p>
+    PhishAID follows a serverless, edge-hosted architecture using Cloudflare services.
+  </p>
 
-<ul>
-<li>User Browser</li>
-<li>Cloudflare CDN & SSL</li>
-<li>Cloudflare Pages (Frontend)</li>
-<li>Rule-based Detection Engine</li>
-</ul>
-
-<h2>Request Flow</h2>
-<ol>
-<li>User submits a URL</li>
-<li>Frontend sends request to detection logic</li>
-<li>Rules are evaluated</li>
-<li>Verdict and warnings are displayed</li>
-</ol>
+  <ol>
+    <li>User submits URL via browser</li>
+    <li>Request passes through Cloudflare CDN</li>
+    <li>Rule engine evaluates URL</li>
+    <li>Verdict and warnings returned</li>
+  </ol>
+</div>
 
 <footer><hr>© 2026 PhishAID.online</footer>
 </body>
