@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f7fa;
+}
+
+.navbar {
+  background: #0b2a4a;
+  padding: 12px 20px;
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 60px;
+  color: #666;
+}
