@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Home | PhishAID</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-
 <body>
 
 <!-- ================= NAVIGATION ================= -->
@@ -23,42 +21,50 @@
   <a href="/contact.html">Contact</a>
 </nav>
 
-<!-- ================= HEADER ================= -->
-<header class="header">
-  <h1>PhishAID</h1>
-  <p>Rule-Based Phishing Detection System</p>
-</header>
+<hr>
 
 <!-- ================= INTRO ================= -->
 <div class="container">
+  <h1>PhishAID</h1>
+  <h3>Rule-Based Phishing Detection System</h3>
+
   <p>
     PhishAID is an academic cybersecurity project designed to identify phishing
     websites using a transparent, explainable, rule-based detection approach.
   </p>
 
   <p>
-    Enter a website URL to evaluate phishing indicators based on predefined
-    security rules.
+    Enter a website URL with full protocol to evaluate phishing indicators
+    based on predefined security rules.
   </p>
 </div>
 
-<!-- ================= CHECKER UI ================= -->
+<!-- ================= CHECKER ================= -->
 <div class="checker">
   <input
-    type="text"
+    type="url"
     id="urlInput"
-    placeholder="Enter website URL (e.g. https://example.com)"
+    placeholder="Enter full URL (https://example.com)"
+    required
+    pattern="https?://.*"
+    title="URL must start with http:// or https://"
   />
   <button id="checkBtn">Check Website</button>
 </div>
 
+<p class="helper-text">
+  ⚠️ Please enter the complete URL including <strong>http://</strong> or
+  <strong>https://</strong>.  
+  Example: <code>https://google.com</code>
+</p>
+
 <!-- ================= LOADING ================= -->
 <div id="loading" class="hidden">
-  Analyzing website…
+  Analyzing website using rule-based engine…
 </div>
 
-<!-- ================= RESULT SUMMARY ================= -->
-<div id="result" class="result-box hidden">
+<!-- ================= RESULT ================= -->
+<div id="result" class="hidden">
   <h3 id="verdict"></h3>
   <p id="score"></p>
   <ul id="warnings"></ul>
@@ -68,54 +74,18 @@
 <div id="domainInfo" class="info-box hidden">
   <h3>Domain Intelligence</h3>
   <table class="info-table">
-    <tr>
-      <td><strong>Domain Name</strong></td>
-      <td id="infoDomain"></td>
-    </tr>
-    <tr>
-      <td><strong>Resolved Protocol</strong></td>
-      <td id="infoProtocol"></td>
-    </tr>
-    <tr>
-      <td><strong>Country</strong></td>
-      <td id="infoCountry"></td>
-    </tr>
-    <tr>
-      <td><strong>Domain Registrar</strong></td>
-      <td id="infoRegistrar"></td>
-    </tr>
-    <tr>
-      <td><strong>Registration Date</strong></td>
-      <td id="infoRegDate"></td>
-    </tr>
-    <tr>
-      <td><strong>Domain Age</strong></td>
-      <td id="infoAge"></td>
-    </tr>
-  </table>
-</div>
-
-<!-- ================= RULE LOG TABLE (NEXT STEP) ================= -->
-<div id="ruleLogContainer" class="hidden">
-  <h3>Rule Evaluation Log</h3>
-  <table class="rule-table">
-    <thead>
-      <tr>
-        <th>Domain Name</th>
-        <th>Rule #</th>
-        <th>Comments</th>
-        <th>Remark</th>
-        <th>Score</th>
-      </tr>
-    </thead>
-    <tbody id="ruleLogBody">
-      <!-- Filled dynamically by JS -->
-    </tbody>
+    <tr><td><strong>Domain Name</strong></td><td id="infoDomain"></td></tr>
+    <tr><td><strong>Resolved Protocol</strong></td><td id="infoProtocol"></td></tr>
+    <tr><td><strong>Country</strong></td><td id="infoCountry"></td></tr>
+    <tr><td><strong>Domain Registrar</strong></td><td id="infoRegistrar"></td></tr>
+    <tr><td><strong>Registration Date</strong></td><td id="infoRegDate"></td></tr>
+    <tr><td><strong>Domain Age</strong></td><td id="infoAge"></td></tr>
   </table>
 </div>
 
 <!-- ================= FOOTER ================= -->
-<footer class="footer">
+<footer>
+  <hr>
   © 2026 PhishAID.online — Academic Demonstration Project
 </footer>
 
