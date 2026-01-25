@@ -83,6 +83,31 @@
   </table>
 </div>
 
+<!-- ================= RULE EVALUATION TABLE ================= -->
+<div id="ruleTableBox" class="info-box hidden">
+  <h3>Rule-Based Evaluation (Rules 1–30)</h3>
+
+  <table class="rule-table">
+    <thead>
+      <tr>
+        <th>Domain Name</th>
+        <th>Rule #</th>
+        <th>Rule Description</th>
+        <th>Status</th>
+        <th>Score Impact</th>
+      </tr>
+    </thead>
+    <tbody id="ruleTableBody">
+      <!-- Filled dynamically by app.js -->
+    </tbody>
+  </table>
+
+  <p class="note">
+    ℹ️ All rules are evaluated for every domain.  
+    SAFE rules contribute <strong>0</strong>, SUSPICIOUS rules contribute negative risk score.
+  </p>
+</div>
+
 <!-- ================= FOOTER ================= -->
 <footer>
   <hr>
