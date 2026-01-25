@@ -23,31 +23,21 @@
   </div>
 </nav>
 
-<!-- HEADER -->
 <header class="header">
   <h1>PhishAID</h1>
   <p>Rule-Based Phishing Detection System</p>
 </header>
 
-<!-- INTRO -->
 <div class="container">
   <p>
-    PhishAID is an academic cybersecurity project designed to identify phishing
-    websites using a transparent, rule-based detection approach.
-  </p>
-  <p>
-    Enter a website URL to evaluate potential phishing indicators
-    based on predefined security rules.
+    Enter a website URL to evaluate phishing indicators using
+    predefined rule-based security checks.
   </p>
 </div>
 
 <!-- CHECKER -->
 <div class="checker">
-  <input
-    type="text"
-    id="urlInput"
-    placeholder="Enter website URL (e.g. google.com)"
-  />
+  <input id="urlInput" placeholder="Enter website URL (e.g. google.com)">
   <button id="checkBtn">Check Website</button>
 </div>
 
@@ -60,13 +50,13 @@
   <ul id="warnings"></ul>
 </div>
 
-<!-- RULE LOG TABLE -->
+<!-- 1️⃣ RULE LOG TABLE -->
 <div id="ruleLogContainer" class="hidden container">
   <h3>Rule Evaluation Log</h3>
   <table class="rule-table">
     <thead>
       <tr>
-        <th>Domain</th>
+        <th>Domain Name</th>
         <th>Rule #</th>
         <th>Comments</th>
         <th>Remark</th>
