@@ -61,7 +61,45 @@ const RULES = [
 ];
 
 // ===============================
-// FIX 1: Strict URL Validation (case-insensitive)
+// FIX 2 (CORRECT): Rule → Warning Mapping
+// ===============================
+const RULE_WARNING_MAP = {
+  1: "https",
+  2: "ip",
+  3: "length",
+  4: "@",
+  5: "subdomain",
+  6: "tld",
+  7: "age",
+  8: "hyphen",
+  9: "shortening",
+  10: "login",
+
+  11: "form",
+  12: "favicon",
+  13: "dns",
+  14: "redirect",
+  15: "javascript",
+  16: "iframe",
+  17: "popup",
+  18: "title",
+  19: "hosting",
+  20: "encoding",
+
+  21: "email",
+  22: "brand",
+  23: "whois",
+  24: "ssl",
+  25: "header",
+  26: "pattern",
+  27: "event",
+  28: "clipboard",
+  29: "favicon",
+  30: "anomaly"
+};
+
+// ===============================
+// FIX 1: Strict URL Validation
 // ===============================
 function normalizeUrl(url) {
   const lower = url.toLowerCase();
@@ -88,21 +126,17 @@ function showDomainInfo(url) {
 }
 
 // ===============================
-// FIX 2: Rule Table Renderer (Rule #1 aligned)
+// Rule Table Renderer (STABLE)
 // ===============================
-function renderRuleTable(domain, triggeredRules = [], inputUrl) {
+function renderRuleTable(domain, warnings = []) {
   ruleTableBody.innerHTML = "";
   ruleTableBox.classList.remove("hidden");
 
-  const isHttps = inputUrl.toLowerCase().startsWith("https://");
-
   RULES.forEach(rule => {
-    let triggered = triggeredRules.some(r => r.rule_id === rule.id);
-
-    // 🔐 Rule #1 must reflect protocol truth
-    if (rule.id === 1) {
-      triggered = !isHttps;
-    }
+    const keyword = RULE_WARNING_MAP[rule.id];
+    const triggered = warnings.some(w =>
+      w.toLowerCase().includes(keyword)
+    );
 
     const status = triggered ? "Suspicious" : "Safe";
     const score = triggered ? rule.score : 0;
@@ -186,10 +220,8 @@ function showResult(data, inputUrl) {
 
   showDomainInfo(inputUrl);
 
-  // ✅ Rule table with protocol-aware logic
   renderRuleTable(
-    data.domain || new URL(inputUrl).hostname,
-    data.rules_triggered || [],
-    inputUrl
+    new URL(inputUrl).hostname,
+    data.warnings || []
   );
 }
