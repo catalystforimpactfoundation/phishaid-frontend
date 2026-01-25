@@ -61,10 +61,11 @@ const RULES = [
 ];
 
 // ===============================
-// Strict URL Validation
+// FIX 1: Strict URL Validation (case-insensitive)
 // ===============================
 function normalizeUrl(url) {
-  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+  const lower = url.toLowerCase();
+  if (!lower.startsWith("http://") && !lower.startsWith("https://")) {
     throw new Error("URL must include http:// or https://");
   }
   return url;
@@ -78,7 +79,8 @@ function showDomainInfo(url) {
 
   domainInfoBox.classList.remove("hidden");
   document.getElementById("infoDomain").textContent = parsed.hostname;
-  document.getElementById("infoProtocol").textContent = parsed.protocol.replace(":", "").toUpperCase();
+  document.getElementById("infoProtocol").textContent =
+    parsed.protocol.replace(":", "").toUpperCase();
   document.getElementById("infoCountry").textContent = "Unknown (Academic Demo)";
   document.getElementById("infoRegistrar").textContent = "WHOIS lookup required";
   document.getElementById("infoRegDate").textContent = "Not available";
@@ -86,14 +88,22 @@ function showDomainInfo(url) {
 }
 
 // ===============================
-// Rule Table Renderer
+// FIX 2: Rule Table Renderer (Rule #1 aligned)
 // ===============================
-function renderRuleTable(domain, triggeredRules = []) {
+function renderRuleTable(domain, triggeredRules = [], inputUrl) {
   ruleTableBody.innerHTML = "";
   ruleTableBox.classList.remove("hidden");
 
+  const isHttps = inputUrl.toLowerCase().startsWith("https://");
+
   RULES.forEach(rule => {
-    const triggered = triggeredRules.some(r => r.rule_id === rule.id);
+    let triggered = triggeredRules.some(r => r.rule_id === rule.id);
+
+    // 🔐 Rule #1 must reflect protocol truth
+    if (rule.id === 1) {
+      triggered = !isHttps;
+    }
+
     const status = triggered ? "Suspicious" : "Safe";
     const score = triggered ? rule.score : 0;
 
@@ -140,6 +150,8 @@ button.addEventListener("click", async () => {
       body: JSON.stringify({ url })
     });
 
+    if (!response.ok) throw new Error("Backend error");
+
     const data = await response.json();
     showResult(data, url);
 
@@ -173,8 +185,11 @@ function showResult(data, inputUrl) {
   }
 
   showDomainInfo(inputUrl);
+
+  // ✅ Rule table with protocol-aware logic
   renderRuleTable(
     data.domain || new URL(inputUrl).hostname,
-    data.rules_triggered || []
+    data.rules_triggered || [],
+    inputUrl
   );
 }
