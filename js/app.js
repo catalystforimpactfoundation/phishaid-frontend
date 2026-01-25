@@ -2,8 +2,8 @@
 // PhishAID Frontend Logic (FINAL)
 // ===============================
 
-// Backend API (keep this)
-const API_URL = "https://phishaid-api-1013270519404.asia-south1.run.app/check";
+const API_URL =
+  "https://phishaid-api-1013270519404.asia-south1.run.app/check";
 
 // DOM elements
 const input = document.getElementById("urlInput");
@@ -13,63 +13,58 @@ const resultBox = document.getElementById("result");
 const verdictEl = document.getElementById("verdict");
 const scoreEl = document.getElementById("score");
 const warningsEl = document.getElementById("warnings");
+const ruleLogContainer = document.getElementById("ruleLogContainer");
+const ruleLogBody = document.getElementById("ruleLogBody");
 
-// Safety check
-if (!button) {
-  console.error("Check button not found in DOM");
+// Normalize URL (IMPORTANT FIX)
+function normalizeURL(input) {
+  let url = input.trim();
+  if (!/^https?:\/\//i.test(url)) {
+    url = "https://" + url;
+  }
+  return url;
 }
 
-// Button click handler
+// Button click
 button.addEventListener("click", async () => {
-  const url = input.value.trim();
-
-  if (!url) {
+  const rawInput = input.value.trim();
+  if (!rawInput) {
     alert("Please enter a website URL.");
     return;
   }
 
-  // Reset UI
+  const url = normalizeURL(rawInput);
+
   loading.classList.remove("hidden");
   resultBox.classList.add("hidden");
+  ruleLogContainer.classList.add("hidden");
   warningsEl.innerHTML = "";
+  ruleLogBody.innerHTML = "";
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url }),
-      signal: controller.signal
+      body: JSON.stringify({ url })
     });
 
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      throw new Error("Server returned error");
-    }
-
     const data = await response.json();
-    showResult(data);
+    showResult(data, url);
 
-  } catch (error) {
-    console.error(error);
-    alert("Unable to analyze the website. Please try again later.");
+  } catch (err) {
+    alert("Unable to analyze the website.");
   } finally {
     loading.classList.add("hidden");
   }
 });
 
-// Display result
-function showResult(data) {
+// Display result + rule log
+function showResult(data, domain) {
   resultBox.classList.remove("hidden");
 
-  // IMPORTANT: keep base class + verdict class
-  resultBox.className = "result-box";
-  resultBox.classList.add(
-    data.verdict === "Legitimate" ? "safe" : "phishing"
-  );
+  resultBox.className =
+    "result-box " +
+    (data.verdict === "Legitimate" ? "safe" : "phishing");
 
   verdictEl.textContent = `Verdict: ${data.verdict}`;
   scoreEl.textContent = `Risk Score: ${data.score}`;
@@ -79,10 +74,32 @@ function showResult(data) {
   if (!data.warnings || data.warnings.length === 0) {
     warningsEl.innerHTML = "<li>No phishing indicators found.</li>";
   } else {
-    data.warnings.forEach(warning => {
+    data.warnings.forEach(w => {
       const li = document.createElement("li");
-      li.textContent = warning;
+      li.textContent = w;
       warningsEl.appendChild(li);
     });
+  }
+
+  // Rule log table
+  ruleLogContainer.classList.remove("hidden");
+
+  if (data.rules && data.rules.length > 0) {
+    data.rules.forEach(rule => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${domain}</td>
+        <td>${rule.rule_id}</td>
+        <td>${rule.comment}</td>
+        <td>${rule.remark}</td>
+        <td>${rule.score}</td>
+      `;
+      ruleLogBody.appendChild(row);
+    });
+  } else {
+    const row = document.createElement("tr");
+    row.innerHTML =
+      "<td colspan='5'>No phishing rules matched</td>";
+    ruleLogBody.appendChild(row);
   }
 }
