@@ -155,12 +155,15 @@ button.addEventListener("click", async () => {
 // Render Final Result
 // ===============================
 function showResult(data, inputUrl) {
+  // Show result box
   resultBox.classList.remove("hidden");
   resultBox.className = data.verdict === "Legitimate" ? "safe" : "phishing";
 
+  // Verdict & score
   verdictEl.textContent = `Verdict: ${data.verdict}`;
   scoreEl.textContent = `Risk Score: ${data.score}`;
 
+  // Warnings
   warningsEl.innerHTML = "";
   if (!data.warnings || data.warnings.length === 0) {
     warningsEl.innerHTML = "<li>No phishing indicators found.</li>";
@@ -172,6 +175,13 @@ function showResult(data, inputUrl) {
     });
   }
 
+  // Domain Intelligence
   showDomainInfo(inputUrl);
-  renderRuleTable(new URL(inputUrl).hostname, data.rules_triggered || []);
+
+  // ✅ RULE TABLE (THIS IS THE LINE YOU ASKED ABOUT)
+  renderRuleTable(
+    data.domain || new URL(inputUrl).hostname,
+    data.rules_triggered || []
+  );
 }
+
