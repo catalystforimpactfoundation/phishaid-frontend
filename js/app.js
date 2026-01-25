@@ -18,10 +18,7 @@ const verdictEl = document.getElementById("verdict");
 const scoreEl = document.getElementById("score");
 const warningsEl = document.getElementById("warnings");
 
-// Domain intelligence
 const domainInfoBox = document.getElementById("domainInfo");
-
-// Rule table
 const ruleTableBox = document.getElementById("ruleTableBox");
 const ruleTableBody = document.getElementById("ruleTableBody");
 
@@ -64,8 +61,7 @@ const RULES = [
 ];
 
 // ===============================
-// Helper: Normalize URL
-// (FORCE http/https — as requested)
+// Helper: Normalize URL (STRICT)
 // ===============================
 function normalizeUrl(url) {
   if (!url.startsWith("http://") && !url.startsWith("https://")) {
@@ -75,33 +71,18 @@ function normalizeUrl(url) {
 }
 
 // ===============================
-// Helper: Extract Domain Info
-// ===============================
-function extractDomainInfo(url) {
-  const parsed = new URL(url);
-  return {
-    domain: parsed.hostname,
-    protocol: parsed.protocol.replace(":", "").toUpperCase(),
-    country: "Unknown (Demo)",
-    registrar: "WHOIS lookup required",
-    registration_date: "Not available (Academic Demo)",
-    domain_age: "N/A"
-  };
-}
-
-// ===============================
-// Render Domain Intelligence
+// Domain Intelligence
 // ===============================
 function showDomainInfo(url) {
-  const info = extractDomainInfo(url);
-  domainInfoBox.classList.remove("hidden");
+  const parsed = new URL(url);
 
-  document.getElementById("infoDomain").textContent = info.domain;
-  document.getElementById("infoProtocol").textContent = info.protocol;
-  document.getElementById("infoCountry").textContent = info.country;
-  document.getElementById("infoRegistrar").textContent = info.registrar;
-  document.getElementById("infoRegDate").textContent = info.registration_date;
-  document.getElementById("infoAge").textContent = info.domain_age;
+  domainInfoBox.classList.remove("hidden");
+  document.getElementById("infoDomain").textContent = parsed.hostname;
+  document.getElementById("infoProtocol").textContent = parsed.protocol.replace(":", "").toUpperCase();
+  document.getElementById("infoCountry").textContent = "Unknown (Academic Demo)";
+  document.getElementById("infoRegistrar").textContent = "WHOIS lookup required";
+  document.getElementById("infoRegDate").textContent = "Not available";
+  document.getElementById("infoAge").textContent = "N/A";
 }
 
 // ===============================
@@ -112,16 +93,16 @@ function renderRuleTable(domain, triggeredRules = []) {
   ruleTableBox.classList.remove("hidden");
 
   RULES.forEach(rule => {
-    const matched = triggeredRules.some(r => r.rule_id === rule.id);
-    const status = matched ? "Suspicious" : "Safe";
-    const score = matched ? rule.score : 0;
+    const triggered = triggeredRules.some(r => r.rule_id === rule.id);
+    const status = triggered ? "Suspicious" : "Safe";
+    const score = triggered ? rule.score : 0;
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${domain}</td>
       <td>${rule.id}</td>
       <td>${rule.desc}</td>
-      <td class="${matched ? "bad" : "good"}">${status}</td>
+      <td class="${triggered ? "bad" : "good"}">${status}</td>
       <td>${score}</td>
     `;
     ruleTableBody.appendChild(tr);
@@ -135,7 +116,7 @@ button.addEventListener("click", async () => {
   let url = input.value.trim();
 
   if (!url) {
-    alert("Please enter a website URL with http:// or https://");
+    alert("Please enter a URL with http:// or https://");
     return;
   }
 
@@ -146,7 +127,6 @@ button.addEventListener("click", async () => {
     return;
   }
 
-  // Reset UI
   loading.classList.remove("hidden");
   resultBox.classList.add("hidden");
   domainInfoBox.classList.add("hidden");
@@ -160,13 +140,11 @@ button.addEventListener("click", async () => {
       body: JSON.stringify({ url })
     });
 
-    if (!response.ok) throw new Error("Backend error");
-
     const data = await response.json();
     showResult(data, url);
 
   } catch (err) {
-    alert("Unable to analyze the website. Please try again later.");
+    alert("Analysis failed. Please try again.");
     console.error(err);
   } finally {
     loading.classList.add("hidden");
@@ -178,13 +156,11 @@ button.addEventListener("click", async () => {
 // ===============================
 function showResult(data, inputUrl) {
   resultBox.classList.remove("hidden");
-
   resultBox.className = data.verdict === "Legitimate" ? "safe" : "phishing";
 
   verdictEl.textContent = `Verdict: ${data.verdict}`;
   scoreEl.textContent = `Risk Score: ${data.score}`;
 
-  // Warnings
   warningsEl.innerHTML = "";
   if (!data.warnings || data.warnings.length === 0) {
     warningsEl.innerHTML = "<li>No phishing indicators found.</li>";
@@ -196,12 +172,6 @@ function showResult(data, inputUrl) {
     });
   }
 
-  // Domain intelligence
   showDomainInfo(inputUrl);
-
-  // Rule evaluation table
-  renderRuleTable(
-    new URL(inputUrl).hostname,
-    data.rules_triggered || []
-  );
+  renderRuleTable(new URL(inputUrl).hostname, data.rules_triggered || []);
 }
