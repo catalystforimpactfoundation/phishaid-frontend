@@ -5,7 +5,7 @@
 const API_URL =
   "https://phishaid-api-1013270519404.asia-south1.run.app/check";
 
-// DOM elements
+// DOM Elements
 const input = document.getElementById("urlInput");
 const button = document.getElementById("checkBtn");
 const loading = document.getElementById("loading");
@@ -13,27 +13,32 @@ const resultBox = document.getElementById("result");
 const verdictEl = document.getElementById("verdict");
 const scoreEl = document.getElementById("score");
 const warningsEl = document.getElementById("warnings");
+
 const ruleLogContainer = document.getElementById("ruleLogContainer");
 const ruleLogBody = document.getElementById("ruleLogBody");
 
-// Normalize URL (IMPORTANT FIX)
-function normalizeURL(input) {
-  let url = input.trim();
+// ===============================
+// ✅ ADD THIS BEFORE API CALL
+// URL Normalization
+// ===============================
+function normalizeURL(value) {
+  let url = value.trim();
   if (!/^https?:\/\//i.test(url)) {
     url = "https://" + url;
   }
   return url;
 }
 
-// Button click
+// ===============================
+// Button Click Handler
+// ===============================
 button.addEventListener("click", async () => {
-  const rawInput = input.value.trim();
-  if (!rawInput) {
-    alert("Please enter a website URL.");
+  if (!input.value.trim()) {
+    alert("Please enter a website URL");
     return;
   }
 
-  const url = normalizeURL(rawInput);
+  const url = normalizeURL(input.value);
 
   loading.classList.remove("hidden");
   resultBox.classList.add("hidden");
@@ -51,14 +56,16 @@ button.addEventListener("click", async () => {
     const data = await response.json();
     showResult(data, url);
 
-  } catch (err) {
+  } catch (error) {
     alert("Unable to analyze the website.");
   } finally {
     loading.classList.add("hidden");
   }
 });
 
-// Display result + rule log
+// ===============================
+// 2️⃣ UPDATED showResult()
+// ===============================
 function showResult(data, domain) {
   resultBox.classList.remove("hidden");
 
@@ -81,7 +88,9 @@ function showResult(data, domain) {
     });
   }
 
-  // Rule log table
+  // ===============================
+  // Rule Evaluation Table
+  // ===============================
   ruleLogContainer.classList.remove("hidden");
 
   if (data.rules && data.rules.length > 0) {
