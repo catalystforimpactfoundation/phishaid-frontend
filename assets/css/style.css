@@ -1,120 +1,98 @@
-/* =========================
-   RESET & BASE
-========================= */
+/* ===============================
+   Base Reset
+=============================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ===============================
+   Body
+=============================== */
 body {
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   background-color: #f5f7fa;
   color: #1f2937;
   line-height: 1.6;
 }
 
-/* =========================
-   TYPOGRAPHY
-========================= */
-h1, h2, h3 {
-  color: #0b3c5d;
-  margin-bottom: 10px;
-}
-
-p {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-
-ul, ol {
-  margin-left: 20px;
-  margin-bottom: 12px;
-}
-
-hr {
-  margin: 20px 0;
-  border: none;
-  border-top: 1px solid #e5e7eb;
-}
-
-/* =========================
-   NAVBAR
-========================= */
+/* ===============================
+   Navbar (CENTERED)
+=============================== */
 .navbar {
   background-color: #0b3c5d;
-  padding: 14px 20px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  padding: 14px 0;
 }
 
-.navbar a {
+.nav-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.nav-links a {
   color: #ffffff;
   text-decoration: none;
-  margin-right: 18px;
   font-weight: 500;
 }
 
-.navbar a:hover {
+.nav-links a:hover {
   text-decoration: underline;
 }
 
-/* =========================
-   HEADER (HERO)
-========================= */
+/* ===============================
+   Header
+=============================== */
 .header {
-  background-color: #0a2540;
-  color: #ffffff;
-  padding: 40px 20px;
   text-align: center;
+  padding: 40px 20px;
+  background: #f8fafc;
 }
 
 .header h1 {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
+  color: #0b3c5d;
 }
 
 .header p {
   font-size: 1.1rem;
-  opacity: 0.9;
 }
 
-/* =========================
-   MAIN CONTENT CONTAINER
-========================= */
+/* ===============================
+   Container
+=============================== */
 .container {
   max-width: 900px;
-  margin: 40px auto;
+  margin: 30px auto;
   padding: 0 20px;
+  text-align: center;
 }
 
-/* =========================
-   PHISHING CHECKER UI
-========================= */
+/* ===============================
+   Checker (SHORT INPUT)
+=============================== */
 .checker {
   display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 30px;
+  margin: 30px auto;
 }
 
 .checker input {
-  flex: 1;
-  padding: 14px;
+  width: 420px;   /* SHORTENED */
+  padding: 12px;
   font-size: 16px;
   border: 1px solid #cbd5e1;
   border-radius: 4px;
 }
 
-.checker input:focus {
-  outline: none;
-  border-color: #2563eb;
-}
-
 .checker button {
-  padding: 14px 24px;
+  padding: 12px 22px;
   font-size: 16px;
   background-color: #2563eb;
-  color: #ffffff;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -124,16 +102,12 @@ hr {
   background-color: #1e40af;
 }
 
-/* =========================
-   RESULT & STATUS
-========================= */
-#loading {
-  margin: 20px 0;
-  font-size: 1rem;
-}
-
-#result {
-  margin-top: 30px;
+/* ===============================
+   Result Box
+=============================== */
+.result-box {
+  max-width: 900px;
+  margin: 20px auto;
   padding: 20px;
   border-radius: 6px;
 }
@@ -148,40 +122,39 @@ hr {
   border-left: 6px solid #ef4444;
 }
 
-#verdict {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
+/* ===============================
+   Rule Table
+=============================== */
+.rule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
 }
 
-#score {
-  font-weight: 600;
-  margin-bottom: 15px;
+.rule-table th,
+.rule-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-#warnings {
-  list-style-type: disc;
-  padding-left: 20px;
+.rule-table th {
+  background-color: #0b3c5d;
+  color: #fff;
 }
 
-#warnings li {
-  margin-bottom: 8px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-.footer {
-  margin-top: 60px;
-  padding: 20px;
+/* ===============================
+   Footer
+=============================== */
+footer {
+  margin: 40px 0;
   text-align: center;
   font-size: 14px;
-  color: #6b7280;
-  background-color: #f1f5f9;
+  color: #666;
 }
 
-/* =========================
-   UTILITIES
-========================= */
+/* ===============================
+   Utility
+=============================== */
 .hidden {
   display: none;
 }
