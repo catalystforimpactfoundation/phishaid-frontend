@@ -71,21 +71,28 @@ body {
 }
 
 /* ===============================
-   Checker (SHORT INPUT)
+   Checker (Responsive)
 =============================== */
 .checker {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin: 30px auto;
+  flex-wrap: wrap;
 }
 
 .checker input {
-  width: 420px;   /* SHORTENED */
+  width: 420px;
+  max-width: 90%;
   padding: 12px;
   font-size: 16px;
   border: 1px solid #cbd5e1;
   border-radius: 4px;
+}
+
+.checker input:focus {
+  outline: none;
+  border-color: #2563eb;
 }
 
 .checker button {
@@ -123,23 +130,29 @@ body {
 }
 
 /* ===============================
-   Rule Table
+   Rule Evaluation Table
 =============================== */
 .rule-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
+  font-size: 14px;
 }
 
 .rule-table th,
 .rule-table td {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 
 .rule-table th {
   background-color: #0b3c5d;
-  color: #fff;
+  color: #ffffff;
+}
+
+.rule-table tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
 /* ===============================
