@@ -29,13 +29,13 @@
   <h3>Rule-Based Phishing Detection System</h3>
 
   <p>
-    PhishAID is an academic cybersecurity project designed to identify phishing
-    websites using a transparent, explainable, rule-based detection approach.
+    PhishAID is an academic cybersecurity project that detects phishing websites
+    using a transparent, deterministic, rule-based framework.
   </p>
 
   <p>
-    Enter a website URL with full protocol to evaluate phishing indicators
-    based on predefined security rules.
+    Enter a complete URL (including protocol) to evaluate phishing indicators
+    using explainable security rules.
   </p>
 </div>
 
@@ -53,9 +53,8 @@
 </div>
 
 <p class="helper-text">
-  ⚠️ Please enter the complete URL including <strong>http://</strong> or
-  <strong>https://</strong>.  
-  Example: <code>https://google.com</code>
+  ⚠️ Please enter the complete URL including
+  <strong>http://</strong> or <strong>https://</strong>
 </p>
 
 <!-- ================= LOADING ================= -->
@@ -64,48 +63,72 @@
 </div>
 
 <!-- ================= RESULT ================= -->
-<div id="result" class="hidden">
+<div id="result" class="hidden result-box">
   <h3 id="verdict"></h3>
   <p id="score"></p>
   <ul id="warnings"></ul>
 </div>
 
-<!-- ================= DOMAIN INTELLIGENCE ================= -->
-<div id="domainInfo" class="info-box hidden">
-  <h3>Domain Intelligence</h3>
-  <table class="info-table">
-    <tr><td><strong>Domain Name</strong></td><td id="infoDomain"></td></tr>
-    <tr><td><strong>Resolved Protocol</strong></td><td id="infoProtocol"></td></tr>
-    <tr><td><strong>Country</strong></td><td id="infoCountry"></td></tr>
-    <tr><td><strong>Domain Registrar</strong></td><td id="infoRegistrar"></td></tr>
-    <tr><td><strong>Registration Date</strong></td><td id="infoRegDate"></td></tr>
-    <tr><td><strong>Domain Age</strong></td><td id="infoAge"></td></tr>
-  </table>
+<!-- ================= DETECTION CATEGORIES ================= -->
+<div class="info-box">
+  <h3>PhishAID Detection Categories (Rule Framework)</h3>
+
+  <h4>Category A — URL & Transport–Level Rules</h4>
+  <ul>
+    <li><strong>Rule 1</strong> – HTTPS usage</li>
+    <li><strong>Rule 2</strong> – Raw IP detection</li>
+    <li><strong>Rule 3</strong> – URL length</li>
+    <li><strong>Rule 4</strong> – <code>@</code> symbol</li>
+    <li><strong>Rule 5</strong> – Subdomain depth</li>
+    <li><strong>Rule 6</strong> – Suspicious TLD</li>
+    <li><strong>Rule 7</strong> – Certificate age (proxy for domain age)</li>
+    <li><strong>Rule 8</strong> – Hyphen usage</li>
+    <li><strong>Rule 9</strong> – URL shorteners</li>
+    <li><strong>Rule 10</strong> – Login keywords</li>
+  </ul>
+
+  <h4>🧬 Category B — Identity Deception</h4>
+  <ul>
+    <li><strong>Rule 21</strong> – Unicode / homoglyph detection</li>
+    <li><strong>Rule 22</strong> – Typosquatting (edit-distance logic)</li>
+  </ul>
+
+  <h4>📐 Category C — Structural Anomaly</h4>
+  <ul>
+    <li><strong>Rule 18</strong> – Clone phishing (DOM similarity heuristic)</li>
+  </ul>
+
+  <h4>🧠 Category D — Semantic Intent</h4>
+  <ul>
+    <li><strong>Rule 30</strong> – Semantic phishing intent (heuristic, not AI)</li>
+  </ul>
 </div>
 
-<!-- ================= RULE EVALUATION TABLE ================= -->
+<!-- ================= RULE TABLE ================= -->
+<p class="note">
+  ⚠️ <strong>Academic Notice:</strong><br>
+  Rules <strong>11–17, 19, 20, 23, 25, 27–29</strong> are part of the PhishAID
+  rule framework and are <strong>reserved for future implementation</strong>
+  due to higher engineering and data requirements.
+</p>
+
 <div id="ruleTableBox" class="info-box hidden">
   <h3>Rule-Based Evaluation (Rules 1–30)</h3>
 
   <table class="rule-table">
     <thead>
       <tr>
-        <th>Domain Name</th>
+        <th>Domain</th>
         <th>Rule #</th>
-        <th>Rule Description</th>
+        <th>Description</th>
         <th>Status</th>
-        <th>Score Impact</th>
+        <th>Score</th>
       </tr>
     </thead>
     <tbody id="ruleTableBody">
       <!-- Filled dynamically by app.js -->
     </tbody>
   </table>
-
-  <p class="note">
-    ℹ️ All rules are evaluated for every domain.  
-    SAFE rules contribute <strong>0</strong>, SUSPICIOUS rules contribute negative risk score.
-  </p>
 </div>
 
 <!-- ================= FOOTER ================= -->
@@ -114,8 +137,6 @@
   © 2026 PhishAID.online — Academic Demonstration Project
 </footer>
 
-<!-- ================= SCRIPT ================= -->
 <script src="/js/app.js"></script>
-
 </body>
 </html>
