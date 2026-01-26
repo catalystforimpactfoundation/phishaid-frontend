@@ -141,6 +141,28 @@ body {
 }
 
 /* ===============================
+   Detection Categories Alignment
+   (TEXT LEFT-INDENT ONLY)
+=============================== */
+.categories-box {
+  text-align: left;
+}
+
+.categories-box h3,
+.categories-box h4 {
+  text-align: left;
+}
+
+.categories-box ul {
+  margin-left: 22px;
+  padding-left: 0;
+}
+
+.categories-box li {
+  margin: 4px 0;
+}
+
+/* ===============================
    Rule Table
 =============================== */
 .rule-table {
@@ -182,6 +204,7 @@ body {
   margin-top: 12px;
   font-size: 14px;
   color: #475569;
+  text-align: center;
 }
 
 /* ===============================
