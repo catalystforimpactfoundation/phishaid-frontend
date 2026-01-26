@@ -1,147 +1,204 @@
-# PhishAID 🛡️  
-Rule-Based Phishing Detection Web Application
+# PhishAID – Rule-Based Phishing Detection Backend (v1.0)
 
-## 🌐 Live Demo
-- Homepage: https://phishaid.online  
-- Alternate: https://www.phishaid.online  
+PhishAID is an **academic, rule-based phishing detection system** designed to identify malicious and deceptive websites using **transparent, explainable security rules** rather than opaque machine learning models.
 
----
-
-## 📌 Project Overview
-**PhishAID** is an academic cybersecurity project designed to detect phishing websites
-using a **transparent, rule-based detection engine**.
-
-The system evaluates user-submitted URLs against predefined phishing indicators and
-produces an explainable verdict (**Legitimate / Phishing**) along with risk warnings.
-
-This project emphasizes **interpretability, early-stage detection, and infrastructure awareness**.
+This repository contains the **FastAPI backend** deployed on **Google Cloud Run**, which evaluates URLs against a predefined set of **30 phishing detection rules**.
 
 ---
 
-## 🧠 Problem Statement (Source)
-PhishAID is inspired by **Problem Statement PS-02** from a national-level **AI Challenge** focusing on:
+## 🎯 Project Objectives
 
-> *AI-based monitoring and detection of phishing domains and URLs, especially those
-targeting Critical Sector Entities (CSEs).*
-
-Key challenges addressed:
-- Look-alike and typosquatting domains  
-- Newly registered and parked phishing URLs  
-- URL-level deception without page content  
-- Early detection before active exploitation  
+- Demonstrate **explainable cybersecurity logic**
+- Avoid black-box machine learning decisions
+- Provide deterministic and reproducible results
+- Serve as an **academic demonstration project**
+- Support future extension into advanced detection techniques
 
 ---
 
-## 🎯 Objectives
-- Detect phishing URLs using **rule-based heuristics**
-- Provide **explainable security decisions**
-- Avoid reliance on proprietary threat feeds
-- Build a **browser-accessible academic tool**
-- Demonstrate secure web infrastructure practices
+## 🧠 Detection Philosophy
+
+PhishAID follows a **rule-based detection approach**, where each rule represents a known phishing indicator documented in cybersecurity research.
+
+Rules are grouped into four categories:
+
+| Category | Description |
+|--------|-------------|
+| **A** | URL & Transport-Level Analysis |
+| **B** | Identity Deception (Homoglyph, Typosquatting) |
+| **C** | Structural & Content Similarity |
+| **D** | Semantic & Behavioral Intent |
+
+Each triggered rule contributes a **negative risk score**, leading to a final verdict.
 
 ---
 
-## ⚙️ Methodology
-PhishAID evaluates URLs using **30 security rules**, including:
+## 📜 Implemented Rules (v1.0)
 
-- URL structure analysis  
-- Suspicious keywords  
-- IP-based URLs  
-- HTTPS and certificate checks  
-- URL length & entropy analysis  
+### ✅ Category A – URL & Transport-Level Rules
+- Rule 1: HTTPS usage
+- Rule 2: Raw IP address usage
+- Rule 3: Suspicious URL length
+- Rule 4: `@` symbol in URL
+- Rule 5: Excessive subdomains
+- Rule 6: Suspicious TLDs
+- Rule 7: Certificate age (< 6 months)
+- Rule 8: Hyphenated domains
+- Rule 9: URL shorteners
+- Rule 10: Login-related keywords
 
-Each triggered rule contributes to a cumulative **risk score**.
-The final verdict is derived from the total score and rule outcomes.
+### ✅ Category B – Identity Deception
+- Rule 21: Unicode / ASCII homoglyph detection
+- Rule 22: Typosquatting detection (edit distance + brand logic)
 
----
+### ✅ Category C – Structural Anomalies
+- Rule 18: Clone phishing (DOM similarity heuristic)
 
-## 🏗️ System Architecture
-**High-level components:**
-- User Browser
-- Cloudflare CDN & SSL
-- Cloudflare Pages (Frontend Hosting)
-- Rule-Based Detection Engine
-
-**Flow:**
-1. User submits URL
-2. Rules are evaluated
-3. Score & warnings generated
-4. Verdict displayed to the user
+### ✅ Category D – Semantic Intent
+- Rule 30: Semantic phishing intent (rule-based heuristic)
 
 ---
 
-## 🧩 Technology Stack
-| Layer | Technology |
-|-----|-----------|
-| Frontend | HTML, CSS, JavaScript |
-| Hosting | Cloudflare Pages |
-| CDN & Security | Cloudflare |
-| Domain & DNS | Cloudflare DNS |
-| Version Control | GitHub |
-| Deployment | GitHub → Cloudflare CI/CD |
+## ⏳ Defined but Not Implemented (Future Work)
+
+The following rules are **part of the framework** but intentionally left unimplemented in v1.0 due to scope, browser execution requirements, or ethical constraints:
+
+```
+
+Rules: 11–17, 19, 20, 23, 25, 27, 28, 29
+
+```
+
+These include:
+- Form behavior analysis
+- JavaScript runtime inspection
+- Clipboard hijacking
+- Advanced hosting intelligence
+- Browser-level event monitoring
+
+> 📌 These rules are reserved for future versions and are clearly documented as such for academic transparency.
 
 ---
 
-## 🌍 Infrastructure Highlights
-- **Serverless hosting** (no fixed IP)
-- **Global CDN distribution**
-- **Automatic HTTPS**
-- **DDoS protection**
-- **Canonical redirect (SEO-friendly)**
+## 🧪 Example API Usage
+
+### Endpoint
+```
+
+POST /check
+
+````
+
+### Request
+```bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://www.amaz0n.com"}' \
+  https://<cloud-run-service-url>/check
+````
+
+### Response
+
+```json
+{
+  "domain": "www.amaz0n.com",
+  "verdict": "Phishing",
+  "score": -25,
+  "warnings": [
+    "Possible typosquatting detected",
+    "Unicode homoglyph detected"
+  ],
+  "rules_triggered": [
+    { "rule_id": 21 },
+    { "rule_id": 22 }
+  ]
+}
+```
 
 ---
 
-## 🚧 Challenges Faced
-- DNS propagation delays
-- Custom domain verification
-- SSL certificate provisioning
-- Canonical redirect configuration
-- Handling CNAME-based hosting without A records
+## 🛠 Technology Stack
 
-All challenges were resolved through Cloudflare-based infrastructure optimization.
+* **Backend Framework:** FastAPI
+* **Language:** Python 3.10+
+* **Deployment:** Google Cloud Run
+* **Containerization:** Docker
+* **Libraries:**
 
----
-
-## 📚 Research Basis
-PhishAID is supported by a literature review of **phishing detection research (2020–2025)**,
-focusing on:
-- URL-based detection
-- Rule-based vs ML approaches
-- Explainable security systems
-
-Relevant research papers are listed on the website under **/research.html**.
+  * requests
+  * beautifulsoup4
+  * idna
+  * dnspython
+  * ssl / socket (standard library)
 
 ---
 
-## 🎓 Academic Context
-- Developed as part of an academic curriculum
-- Designed for semester evaluation & viva-voce
-- Includes presentation material for external examiners
-- Emphasizes documentation, transparency, and infrastructure understanding
+## ☁️ Deployment
+
+The backend is containerized and deployed using **Google Cloud Run**.
+
+Key characteristics:
+
+* Stateless service
+* HTTPS-only access
+* Scales automatically
+* No external APIs required
 
 ---
 
-## ⚠️ Disclaimer
-This project is intended for **educational and research purposes only**.
-Results are heuristic-based and should not be used as a sole security decision system.
+## 📚 Academic Disclaimer
 
----
+> PhishAID is an **academic demonstration project**.
+> It is **not intended to replace commercial anti-phishing systems**.
 
-## 👤 Author
-**PhishAID**  
-Cybersecurity Academic Project  
-GitHub: https://github.com/catalystforimpactfoundation  
+The purpose is to:
+
+* Illustrate phishing detection logic
+* Promote explainable cybersecurity systems
+* Support academic learning and research
 
 ---
 
 ## 🚀 Future Enhancements
-- ML-based phishing classifiers
-- Continuous domain monitoring
-- Browser extension
-- Integration with certificate transparency logs
-- Dataset-driven risk scoring
+
+* Full HTML crawling and JavaScript analysis
+* WHOIS-based domain age validation
+* Browser-based behavioral monitoring
+* Advanced semantic classification models
+* Integration with threat intelligence feeds
 
 ---
 
-© 2026 PhishAID.online  
-Academic & Security Research Project
+## 👤 Author
+
+**PhishAID Project**
+Academic Cybersecurity Demonstration
+© 2026 PhishAID.online
+
+---
+
+## 📄 License
+
+This project is released for **educational and academic use only**.
+
+```
+
+---
+
+## ✅ What this README achieves
+
+✔ Matches your **actual backend implementation**  
+✔ Honest about missing rules (no overclaiming)  
+✔ Examiner-safe  
+✔ Clean academic tone  
+✔ Ready for GitHub & submission  
+
+If you want, next I can:
+
+- Write **Methodology chapter text**
+- Write **Limitations & Future Work**
+- Prepare **Viva questions + answers**
+- Audit your frontend to match README claims
+
+Just tell me 👍
+```
