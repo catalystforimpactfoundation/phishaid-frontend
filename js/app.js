@@ -1,5 +1,5 @@
 // ===============================
-// PhishAID Frontend Logic (FINAL v1.0)
+// PhishAID Frontend Logic (FINAL v1.0 – FIXED)
 // ===============================
 
 // Backend API (Cloud Run)
@@ -113,7 +113,7 @@ function renderRuleTable(domain, warnings = []) {
 
   RULES.forEach(rule => {
 
-    // Reserved rules (academic honesty)
+    // Reserved rules
     if (RESERVED_RULES.includes(rule.id)) {
       const tr = document.createElement("tr");
       tr.classList.add("not-implemented");
@@ -134,16 +134,15 @@ function renderRuleTable(domain, warnings = []) {
       ? warnings.some(w => w.toLowerCase().includes(keyword))
       : false;
 
-    const status = triggered ? "Suspicious" : "Safe";
-    const score = triggered ? rule.score : 0;
-
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${domain}</td>
       <td>${rule.id}</td>
       <td>${rule.desc}</td>
-      <td class="${triggered ? "bad" : "good"}">${status}</td>
-      <td>${score}</td>
+      <td class="${triggered ? "bad" : "good"}">
+        ${triggered ? "Suspicious" : "Safe"}
+      </td>
+      <td>${triggered ? rule.score : 0}</td>
     `;
     ruleTableBody.appendChild(tr);
   });
@@ -193,11 +192,14 @@ button.addEventListener("click", async () => {
 });
 
 // ===============================
-// Final Result Renderer
+// Final Result Renderer (FIXED)
 // ===============================
 function showResult(data, inputUrl) {
   resultBox.classList.remove("hidden");
-  resultBox.className = data.verdict === "Legitimate" ? "safe" : "phishing";
+
+  // 🔧 FIX: remove old verdict classes
+  resultBox.classList.remove("safe", "phishing");
+  resultBox.classList.add(data.verdict === "Legitimate" ? "safe" : "phishing");
 
   verdictEl.textContent = `Verdict: ${data.verdict}`;
   scoreEl.textContent = `Risk Score: ${data.score}`;
