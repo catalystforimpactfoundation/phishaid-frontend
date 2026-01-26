@@ -1,5 +1,5 @@
 // ===============================
-// PhishAID Frontend Logic (FINAL)
+// PhishAID Frontend Logic (FINAL v1.0)
 // ===============================
 
 // Backend API (Cloud Run)
@@ -18,7 +18,6 @@ const verdictEl = document.getElementById("verdict");
 const scoreEl = document.getElementById("score");
 const warningsEl = document.getElementById("warnings");
 
-const domainInfoBox = document.getElementById("domainInfo");
 const ruleTableBox = document.getElementById("ruleTableBox");
 const ruleTableBody = document.getElementById("ruleTableBody");
 
@@ -32,7 +31,7 @@ const RULES = [
   { id: 4, desc: "Contains @ symbol", score: -10 },
   { id: 5, desc: "Multiple subdomains", score: -10 },
   { id: 6, desc: "Suspicious TLD", score: -10 },
-  { id: 7, desc: "Domain age < 6 months", score: -15 },
+  { id: 7, desc: "Certificate age < 6 months", score: -15 },
   { id: 8, desc: "URL contains hyphen", score: -5 },
   { id: 9, desc: "Uses URL shortening", score: -20 },
   { id: 10, desc: "Contains login keywords", score: -10 },
@@ -44,12 +43,12 @@ const RULES = [
   { id: 15, desc: "JavaScript obfuscation", score: -10 },
   { id: 16, desc: "Iframe usage", score: -5 },
   { id: 17, desc: "Popup abuse", score: -5 },
-  { id: 18, desc: "Mismatch domain & title", score: -10 },
+  { id: 18, desc: "Clone phishing (DOM similarity)", score: -10 },
   { id: 19, desc: "Free hosting provider", score: -10 },
   { id: 20, desc: "URL encoding abuse", score: -5 },
 
-  { id: 21, desc: "Email-based phishing indicator", score: -10 },
-  { id: 22, desc: "Brand impersonation", score: -15 },
+  { id: 21, desc: "Unicode / homoglyph detection", score: -10 },
+  { id: 22, desc: "Typosquatting (edit-distance logic)", score: -15 },
   { id: 23, desc: "No WHOIS data", score: -10 },
   { id: 24, desc: "Suspicious SSL issuer", score: -10 },
   { id: 25, desc: "Abnormal request headers", score: -5 },
@@ -57,11 +56,22 @@ const RULES = [
   { id: 27, desc: "Suspicious JavaScript events", score: -5 },
   { id: 28, desc: "Clipboard hijacking attempt", score: -10 },
   { id: 29, desc: "Suspicious favicon domain", score: -5 },
-  { id: 30, desc: "Overall anomaly score high", score: -20 }
+  { id: 30, desc: "Semantic phishing intent (heuristic)", score: -20 }
 ];
 
 // ===============================
-// FIX 2 (CORRECT): Rule → Warning Mapping
+// RESERVED RULES (v1.0)
+// ===============================
+const RESERVED_RULES = [
+  11,12,13,14,15,16,17,
+  19,20,
+  23,
+  25,
+  27,28,29
+];
+
+// ===============================
+// Rule → Warning Keyword Mapping
 // ===============================
 const RULE_WARNING_MAP = {
   1: "https",
@@ -72,34 +82,19 @@ const RULE_WARNING_MAP = {
   6: "tld",
   7: "age",
   8: "hyphen",
-  9: "shortening",
+  9: "short",
   10: "login",
 
-  11: "form",
-  12: "favicon",
-  13: "dns",
-  14: "redirect",
-  15: "javascript",
-  16: "iframe",
-  17: "popup",
-  18: "title",
-  19: "hosting",
-  20: "encoding",
-
-  21: "email",
-  22: "brand",
-  23: "whois",
+  18: "clone",
+  21: "unicode",
+  22: "typo",
   24: "ssl",
-  25: "header",
   26: "pattern",
-  27: "event",
-  28: "clipboard",
-  29: "favicon",
-  30: "anomaly"
+  30: "semantic"
 };
 
 // ===============================
-// FIX 1: Strict URL Validation
+// Strict URL Validation
 // ===============================
 function normalizeUrl(url) {
   const lower = url.toLowerCase();
@@ -110,33 +105,34 @@ function normalizeUrl(url) {
 }
 
 // ===============================
-// Domain Intelligence
-// ===============================
-function showDomainInfo(url) {
-  const parsed = new URL(url);
-
-  domainInfoBox.classList.remove("hidden");
-  document.getElementById("infoDomain").textContent = parsed.hostname;
-  document.getElementById("infoProtocol").textContent =
-    parsed.protocol.replace(":", "").toUpperCase();
-  document.getElementById("infoCountry").textContent = "Unknown (Academic Demo)";
-  document.getElementById("infoRegistrar").textContent = "WHOIS lookup required";
-  document.getElementById("infoRegDate").textContent = "Not available";
-  document.getElementById("infoAge").textContent = "N/A";
-}
-
-// ===============================
-// Rule Table Renderer (STABLE)
+// Rule Table Renderer (FINAL)
 // ===============================
 function renderRuleTable(domain, warnings = []) {
   ruleTableBody.innerHTML = "";
   ruleTableBox.classList.remove("hidden");
 
   RULES.forEach(rule => {
+
+    // Reserved rules (academic honesty)
+    if (RESERVED_RULES.includes(rule.id)) {
+      const tr = document.createElement("tr");
+      tr.classList.add("not-implemented");
+      tr.innerHTML = `
+        <td>${domain}</td>
+        <td>${rule.id}</td>
+        <td>${rule.desc}</td>
+        <td>Reserved</td>
+        <td>—</td>
+      `;
+      ruleTableBody.appendChild(tr);
+      return;
+    }
+
+    // Implemented rules
     const keyword = RULE_WARNING_MAP[rule.id];
-    const triggered = warnings.some(w =>
-      w.toLowerCase().includes(keyword)
-    );
+    const triggered = keyword
+      ? warnings.some(w => w.toLowerCase().includes(keyword))
+      : false;
 
     const status = triggered ? "Suspicious" : "Safe";
     const score = triggered ? rule.score : 0;
@@ -160,7 +156,7 @@ button.addEventListener("click", async () => {
   let url = input.value.trim();
 
   if (!url) {
-    alert("Please enter a URL with http:// or https://");
+    alert("Please enter a complete URL including http:// or https://");
     return;
   }
 
@@ -173,7 +169,6 @@ button.addEventListener("click", async () => {
 
   loading.classList.remove("hidden");
   resultBox.classList.add("hidden");
-  domainInfoBox.classList.add("hidden");
   ruleTableBox.classList.add("hidden");
   warningsEl.innerHTML = "";
 
@@ -217,8 +212,6 @@ function showResult(data, inputUrl) {
       warningsEl.appendChild(li);
     });
   }
-
-  showDomainInfo(inputUrl);
 
   renderRuleTable(
     new URL(inputUrl).hostname,
