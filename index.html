@@ -23,8 +23,10 @@
 
 <hr>
 
-<!-- ================= INTRO ================= -->
+<!-- ================= MAIN CONTAINER ================= -->
 <div class="container">
+
+  <!-- ================= INTRO ================= -->
   <h1>PhishAID</h1>
   <h3>Rule-Based Phishing Detection System</h3>
 
@@ -37,99 +39,101 @@
     Enter a complete URL (including protocol) to evaluate phishing indicators
     using explainable security rules.
   </p>
-</div>
 
-<!-- ================= CHECKER ================= -->
-<div class="checker">
-  <input
-    type="url"
-    id="urlInput"
-    placeholder="Enter full URL (https://example.com)"
-    required
-    pattern="https?://.*"
-    title="URL must start with http:// or https://"
-  />
-  <button id="checkBtn">Check Website</button>
-</div>
+  <!-- ================= CHECKER ================= -->
+  <div class="checker">
+    <input
+      type="url"
+      id="urlInput"
+      placeholder="Enter full URL (https://example.com)"
+      required
+      pattern="https?://.*"
+      title="URL must start with http:// or https://"
+    />
+    <button id="checkBtn">Check Website</button>
+  </div>
 
-<p class="helper-text">
-   Please enter the complete URL including
-  <strong>http://</strong> or <strong>https://</strong>
-</p>
-
-<!-- ================= LOADING ================= -->
-<div id="loading" class="hidden">
-  Analyzing website using rule-based engine…
-</div>
-
-<!-- ================= RESULT ================= -->
-<div id="result" class="hidden result-box">
-  <h3 id="verdict"></h3>
-  <p id="score"></p>
-  <ul id="warnings"></ul>
-</div>
-
-<!-- ================= DETECTION CATEGORIES ================= -->
-<div class="info-box">
-  <h3>PhishAID Detection Categories (Rule Framework)</h3>
-
-  <h4>Category A — URL & Transport–Level Rules</h4>
-  <ul>
-    <li><strong>Rule 1</strong> – HTTPS usage</li>
-    <li><strong>Rule 2</strong> – Raw IP detection</li>
-    <li><strong>Rule 3</strong> – URL length</li>
-    <li><strong>Rule 4</strong> – <code>@</code> symbol</li>
-    <li><strong>Rule 5</strong> – Subdomain depth</li>
-    <li><strong>Rule 6</strong> – Suspicious TLD</li>
-    <li><strong>Rule 7</strong> – Certificate age (proxy for domain age)</li>
-    <li><strong>Rule 8</strong> – Hyphen usage</li>
-    <li><strong>Rule 9</strong> – URL shorteners</li>
-    <li><strong>Rule 10</strong> – Login keywords</li>
-  </ul>
-
-  <h4> Category B — Identity Deception</h4>
-  <ul>
-    <li><strong>Rule 21</strong> – Unicode / homoglyph detection</li>
-    <li><strong>Rule 22</strong> – Typosquatting (edit-distance logic)</li>
-  </ul>
-
-  <h4> Category C — Structural Anomaly</h4>
-  <ul>
-    <li><strong>Rule 18</strong> – Clone phishing (DOM similarity heuristic)</li>
-  </ul>
-
-  <h4> Category D — Semantic Intent</h4>
-  <ul>
-    <li><strong>Rule 30</strong> – Semantic phishing intent (heuristic, not AI)</li>
-  </ul>
-
-  <p class="note">
-     <strong>Special Note:</strong><br>
-    Rules <strong>11–17, 19, 20, 23, 25, 27–29</strong> are part of the PhishAID
-    rule framework and are <strong>reserved for future implementation</strong>
-    due to higher engineering and data requirements.
+  <p class="helper-text">
+    Please enter the complete URL including
+    <strong>http://</strong> or <strong>https://</strong>
   </p>
-</div>
 
-<!-- ================= RULE TABLE ================= -->
-<div id="ruleTableBox" class="info-box hidden">
-  <h3>Rule-Based Evaluation (Rules 1–30)</h3>
+  <!-- ================= LOADING ================= -->
+  <p id="loading" class="hidden">
+    Analyzing website using rule-based engine…
+  </p>
 
-  <table class="rule-table">
-    <thead>
-      <tr>
-        <th>Domain</th>
-        <th>Rule #</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Score</th>
-      </tr>
-    </thead>
-    <tbody id="ruleTableBody">
-      <!-- Filled dynamically by app.js -->
-    </tbody>
-  </table>
+  <!-- ================= RESULT ================= -->
+  <div id="result" class="result-box hidden">
+    <h3 id="verdict"></h3>
+    <p id="score"></p>
+    <ul id="warnings"></ul>
+  </div>
+
+  <!-- ================= DETECTION CATEGORIES ================= -->
+  <div class="info-box">
+    <h3>PhishAID Detection Categories (Rule Framework)</h3>
+
+    <h4>Category A — URL & Transport–Level Rules</h4>
+    <ul>
+      <li><strong>Rule 1</strong> – HTTPS usage</li>
+      <li><strong>Rule 2</strong> – Raw IP detection</li>
+      <li><strong>Rule 3</strong> – URL length</li>
+      <li><strong>Rule 4</strong> – <code>@</code> symbol</li>
+      <li><strong>Rule 5</strong> – Subdomain depth</li>
+      <li><strong>Rule 6</strong> – Suspicious TLD</li>
+      <li><strong>Rule 7</strong> – Certificate age (proxy for domain age)</li>
+      <li><strong>Rule 8</strong> – Hyphen usage</li>
+      <li><strong>Rule 9</strong> – URL shorteners</li>
+      <li><strong>Rule 10</strong> – Login keywords</li>
+    </ul>
+
+    <h4>Category B — Identity Deception</h4>
+    <ul>
+      <li><strong>Rule 21</strong> – Unicode / homoglyph detection</li>
+      <li><strong>Rule 22</strong> – Typosquatting (edit-distance logic)</li>
+    </ul>
+
+    <h4>Category C — Structural Anomaly</h4>
+    <ul>
+      <li><strong>Rule 18</strong> – Clone phishing (DOM similarity heuristic)</li>
+    </ul>
+
+    <h4>Category D — Semantic Intent</h4>
+    <ul>
+      <li><strong>Rule 30</strong> – Semantic phishing intent (heuristic, not AI)</li>
+    </ul>
+
+    <p class="note">
+      <strong>Special Note:</strong><br>
+      Rules <strong>11–17, 19, 20, 23, 25, 27–29</strong> are part of the PhishAID
+      rule framework and are <strong>reserved for future implementation</strong>
+      due to higher engineering and data requirements.
+    </p>
+  </div>
+
+  <!-- ================= RULE TABLE ================= -->
+  <div id="ruleTableBox" class="info-box hidden">
+    <h3>Rule-Based Evaluation (Rules 1–30)</h3>
+
+    <table class="rule-table">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Rule #</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody id="ruleTableBody">
+        <!-- Filled dynamically by app.js -->
+      </tbody>
+    </table>
+  </div>
+
 </div>
+<!-- ================= END CONTAINER ================= -->
 
 <!-- ================= FOOTER ================= -->
 <footer>
