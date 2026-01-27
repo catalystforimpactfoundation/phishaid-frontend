@@ -3,7 +3,7 @@
 // ===============================
 
 // Backend API (Cloud Run)
-const API_URL = "https://phishaid-api-1013270519404.asia-south1.run.app/check";
+const API_URL = "https://phishaid-backend-1013270519404.asia-south1.run.app/check";
 
 // ===============================
 // DOM Elements
@@ -85,9 +85,11 @@ const RULE_WARNING_MAP = {
   9: "short",
   10: "login",
 
+  // Implemented advanced rules
   18: "clone",
-  21: "unicode",
-  22: "typo",
+  21: "homoglyph",
+  22: "typosquatting",
+
   24: "ssl",
   26: "pattern",
   30: "semantic"
@@ -197,10 +199,12 @@ button.addEventListener("click", async () => {
 function showResult(data, inputUrl) {
   resultBox.classList.remove("hidden");
 
-  // 🔧 FIX: remove old verdict classes
-  resultBox.classList.remove("safe", "phishing");
-  resultBox.classList.add(data.verdict === "Legitimate" ? "safe" : "phishing");
+  resultBox.className =
+  data.verdict.toLowerCase().includes("phishing")
+    ? "phishing"
+    : "safe";
 
+ 
   verdictEl.textContent = `Verdict: ${data.verdict}`;
   scoreEl.textContent = `Risk Score: ${data.score}`;
 
