@@ -112,8 +112,18 @@ body {
 }
 
 .phishing {
-  background-color: #fef2f2;
-  border-left: 6px solid #ef4444;
+    background-color: #fdecea;   /* light red */
+    border-left: 5px solid #e74c3c;
+}
+
+.suspicious {
+    background-color: #fff8e1;   /* light yellow */
+    border-left: 5px solid #f1c40f;
+}
+
+.legitimate {
+    background-color: #eafaf1;   /* light green */
+    border-left: 5px solid #2ecc71;
 }
 
 /* ===============================
