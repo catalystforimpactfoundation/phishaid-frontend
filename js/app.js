@@ -197,22 +197,24 @@ button.addEventListener("click", async () => {
 // Final Result Renderer (FIXED)
 // ===============================
 function showResult(data, inputUrl) {
-  // Reset classes first
-resultBox.classList.remove("phishing", "suspicious", "legitimate");
 
-// Apply color based on verdict text
-if (data.verdict.toLowerCase().includes("phishing")) {
-    resultBox.classList.add("phishing");   // RED
-} 
-else if (data.verdict.toLowerCase().includes("suspicious")) {
-    resultBox.classList.add("suspicious"); // YELLOW
-} 
-else {
-    resultBox.classList.add("legitimate"); // GREEN
-}
+  // 🔧 SHOW result box (THIS WAS MISSING)
+  resultBox.classList.remove("hidden");
 
+  // Reset classes
+  resultBox.classList.remove("phishing", "suspicious", "legitimate");
 
- 
+  // Apply color based on verdict
+  if (data.verdict.toLowerCase().includes("phishing")) {
+      resultBox.classList.add("phishing");   // RED
+  } 
+  else if (data.verdict.toLowerCase().includes("suspicious")) {
+      resultBox.classList.add("suspicious"); // YELLOW
+  } 
+  else {
+      resultBox.classList.add("legitimate"); // GREEN
+  }
+
   verdictEl.textContent = `Verdict: ${data.verdict}`;
   scoreEl.textContent = `Risk Score: ${data.score}`;
 
@@ -232,3 +234,4 @@ else {
     data.warnings || []
   );
 }
+
