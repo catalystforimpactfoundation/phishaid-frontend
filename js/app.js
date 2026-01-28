@@ -31,7 +31,7 @@ const RULES = [
   { id: 4, desc: "Contains @ symbol", score: -10 },
   { id: 5, desc: "Multiple subdomains", score: -10 },
   { id: 6, desc: "Suspicious TLD", score: -10 },
-  { id: 7, desc: "Certificate age < 6 months", score: -15 },
+  { id: 7, desc: "Certificate age < 6 months", score: -5 },
   { id: 8, desc: "URL contains hyphen", score: -5 },
   { id: 9, desc: "Uses URL shortening", score: -20 },
   { id: 10, desc: "Contains login keywords", score: -10 },
@@ -48,7 +48,7 @@ const RULES = [
   { id: 20, desc: "URL encoding abuse", score: -5 },
 
   { id: 21, desc: "Unicode / homoglyph detection", score: -10 },
-  { id: 22, desc: "Typosquatting (edit-distance logic)", score: -15 },
+  { id: 22, desc: "Typosquatting (edit-distance logic)", score: -25 },
   { id: 23, desc: "No WHOIS data", score: -10 },
   { id: 24, desc: "Suspicious SSL issuer", score: -10 },
   { id: 25, desc: "Abnormal request headers", score: -5 },
@@ -141,10 +141,10 @@ function renderRuleTable(domain, warnings = []) {
       <td>${domain}</td>
       <td>${rule.id}</td>
       <td>${rule.desc}</td>
-      <td class="${triggered ? "bad" : "good"}">
-        ${triggered ? "Suspicious" : "Safe"}
-      </td>
-      <td>${triggered ? rule.score : 0}</td>
+    <td class="${triggered ? "bad" : "good"}">
+      ${triggered ? "Triggered" : "Not Triggered"}
+    </td>
+    <td>${triggered ? rule.score : 0}</td>
     `;
     ruleTableBody.appendChild(tr);
   });
@@ -197,12 +197,20 @@ button.addEventListener("click", async () => {
 // Final Result Renderer (FIXED)
 // ===============================
 function showResult(data, inputUrl) {
-  resultBox.classList.remove("hidden");
+  // Reset classes first
+resultBox.classList.remove("phishing", "suspicious", "legitimate");
 
-  resultBox.className =
-  data.verdict.toLowerCase().includes("phishing")
-    ? "phishing"
-    : "safe";
+// Apply color based on verdict text
+if (data.verdict.toLowerCase().includes("phishing")) {
+    resultBox.classList.add("phishing");   // RED
+} 
+else if (data.verdict.toLowerCase().includes("suspicious")) {
+    resultBox.classList.add("suspicious"); // YELLOW
+} 
+else {
+    resultBox.classList.add("legitimate"); // GREEN
+}
+
 
  
   verdictEl.textContent = `Verdict: ${data.verdict}`;
