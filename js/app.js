@@ -1,7 +1,3 @@
-// ===============================
-// PhishAID Frontend Logic (FINAL v1.0 – FIXED)
-// ===============================
-
 // Backend API (Cloud Run)
 const API_URL = "https://phishaid-backend-1013270519404.asia-south1.run.app/check";
 
@@ -9,6 +5,7 @@ const API_URL = "https://phishaid-backend-1013270519404.asia-south1.run.app/chec
 // DOM Elements
 // ===============================
 const input = document.getElementById("urlInput");
+const emailInput = document.getElementById("emailInput"); // ✅ ADD THIS
 const button = document.getElementById("checkBtn");
 
 const loading = document.getElementById("loading");
@@ -177,7 +174,11 @@ button.addEventListener("click", async () => {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url })
+      body: JSON.stringify({
+  url,
+  email: emailInput.value || null
+})
+
     });
 
     if (!response.ok) throw new Error("Backend error");
