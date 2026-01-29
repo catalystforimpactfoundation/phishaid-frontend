@@ -41,17 +41,26 @@
   </p>
 
   <!-- ================= CHECKER ================= -->
-  <div class="checker">
-    <input
-      type="url"
-      id="urlInput"
-      placeholder="Enter full URL (https://example.com)"
-      required
-      pattern="https?://.*"
-      title="URL must start with http:// or https://"
-    />
-    <button id="checkBtn">Check Website</button>
-  </div>
+<div class="checker">
+
+  <input
+    type="url"
+    id="urlInput"
+    placeholder="Enter full URL (https://example.com)"
+    required
+    pattern="https?://.*"
+    title="URL must start with http:// or https://"
+  />
+
+  <input
+    type="email"
+    id="emailInput"
+    placeholder="Your email (optional – receive report)"
+  />
+
+  <button id="checkBtn">Check Website</button>
+</div>
+
 
   <p class="helper-text">
     Please enter the complete URL including
