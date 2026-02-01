@@ -22,34 +22,154 @@
 
 <hr>
 
-<div class="container">
+<div class="about-section">
+
   <h1>Technical Stack & Infrastructure</h1>
-
-<ul>
-  <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
-  <li><strong>Hosting:</strong> Cloudflare Pages</li>
-  <li><strong>CDN & Security:</strong> Cloudflare</li>
-  <li><strong>Version Control:</strong> GitHub</li>
-  <li><strong>Deployment:</strong> GitHub → Cloudflare CI/CD</li>
-</ul>
-
-<p>
-The stack emphasizes security, scalability, and zero server maintenance.
-</p>
-
-
-  <ul>
-    <li>Frontend: HTML, CSS, JavaScript</li>
-    <li>Hosting: Cloudflare Pages</li>
-    <li>CDN & Security: Cloudflare</li>
-    <li>Version Control: GitHub</li>
-    <li>Deployment: GitHub → Cloudflare CI/CD</li>
-  </ul>
+  <div class="subtitle">Tools, Platforms, and Services Used in PhishAID</div>
 
   <p>
-    The infrastructure emphasizes security, scalability, and zero-server maintenance.
+    PhishAID is built using a modern, cloud-native technology stack designed
+    for simplicity, scalability, and security. Each component of the system
+    is selected to support a rule-based phishing detection workflow while
+    maintaining transparency and ease of deployment.
   </p>
+
+  <p>
+    The stack integrates frontend technologies, backend services, cloud
+    infrastructure, and security layers into a cohesive and maintainable system.
+  </p>
+
+  <h2>Technology Stack Overview</h2>
+
+  <table class="rule-table">
+    <thead>
+      <tr>
+        <th>Layer / Module</th>
+        <th>Platform / Tool</th>
+        <th>Technology Used</th>
+        <th>Purpose / Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Frontend</td>
+        <td>GitHub (Public Repository)</td>
+        <td>HTML, CSS, JavaScript</td>
+        <td>User interface for URL input and displaying phishing analysis results.</td>
+      </tr>
+
+      <tr>
+        <td>Backend</td>
+        <td>GitHub (Private Repository)</td>
+        <td>Python, Flask Framework</td>
+        <td>Handles URL analysis requests and executes phishing detection rules.</td>
+      </tr>
+
+      <tr>
+        <td>Rule Engine</td>
+        <td>Custom Logic</td>
+        <td>Python (Rule-Based)</td>
+        <td>Implements explainable phishing detection rules based on URL and domain features.</td>
+      </tr>
+
+      <tr>
+        <td>Domain & Hosting</td>
+        <td>Hostinger</td>
+        <td>Domain Service</td>
+        <td>Provides the official domain used for hosting the PhishAID web interface.</td>
+      </tr>
+
+      <tr>
+        <td>CORS Handling</td>
+        <td>Flask CORS</td>
+        <td>Cross-Origin Resource Sharing</td>
+        <td>Enables secure communication between frontend and backend services.</td>
+      </tr>
+
+      <tr>
+        <td>CDN</td>
+        <td>Cloudflare CDN</td>
+        <td>Content Delivery Network</td>
+        <td>Improves loading speed and reduces latency using global edge caching.</td>
+      </tr>
+
+      <tr>
+        <td>Security & DNS</td>
+        <td>Cloudflare</td>
+        <td>DNS, WAF, DDoS Protection</td>
+        <td>Protects the platform against network-level and application-level attacks.</td>
+      </tr>
+
+      <tr>
+        <td>Cloud Service</td>
+        <td>Google Cloud Run</td>
+        <td>Container Deployment</td>
+        <td>Runs the backend as a containerized, serverless service.</td>
+      </tr>
+
+      <tr>
+        <td>Database</td>
+        <td>Google Firestore API</td>
+        <td>NoSQL Database</td>
+        <td>Stores analysis logs, rule execution results, and metadata.</td>
+      </tr>
+
+      <tr>
+        <td>Notification Service</td>
+        <td>Gmail API</td>
+        <td>Email Service</td>
+        <td>Sends phishing alerts and analysis reports to users and administrators.</td>
+      </tr>
+
+      <tr>
+        <td>Cloud Deployment</td>
+        <td>Google Cloud Run</td>
+        <td>Managed Container Service</td>
+        <td>Ensures secure, scalable, and automated backend deployment.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Infrastructure Design Rationale</h2>
+  <p>
+    The infrastructure is designed to minimize operational complexity while
+    maintaining strong security guarantees. Static frontend hosting combined
+    with serverless backend deployment reduces maintenance overhead and
+    eliminates single points of failure.
+  </p>
+
+  <p>
+    Cloudflare services provide an additional security and performance layer,
+    while Google Cloud Run enables automatic scaling based on request load.
+  </p>
+
+  <h2>Scalability and Maintainability</h2>
+  <p>
+    PhishAID’s modular architecture allows individual components such as the
+    rule engine, database, and notification system to be extended or replaced
+    independently. This design supports future enhancements without requiring
+    major architectural changes.
+  </p>
+
+  <p>
+    The use of containerization and managed cloud services ensures that the
+    system remains portable, reliable, and easy to deploy across environments.
+  </p>
+
+  <h2>Future Stack Enhancements</h2>
+  <p>
+    In later phases, the technical stack can be extended to include advanced
+    analytics dashboards, hybrid AI-assisted detection modules, and integration
+    with threat intelligence feeds while preserving the existing rule-based
+    foundation.
+  </p>
+
+  <div class="footer-text">
+    © 2026 PhishAID.online
+  </div>
+
 </div>
+
 
 <footer><hr>© 2026 PhishAID.online</footer>
 </body>
