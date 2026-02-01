@@ -233,3 +233,56 @@ footer {
   font-size: 14px;
   color: #666;
 }
+
+/* ===============================
+   About Page Section
+   (Aligned with Homepage Style)
+=============================== */
+.about-section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: left;
+  color: #1f2937;
+}
+
+.about-section h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.about-section .subtitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 25px;
+}
+
+.about-section h2 {
+  font-size: 1.5rem;
+  margin-top: 30px;
+  margin-bottom: 8px;
+  color: #0b3c5d;   /* matches navbar theme */
+}
+
+.about-section p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+
+/* Divider spacing consistency */
+.about-section p + h2 {
+  margin-top: 35px;
+}
+
+/* Footer text inside about page */
+.about-section .footer-text {
+  margin-top: 45px;
+  font-size: 0.9rem;
+  color: #64748b;
+  text-align: left;
+}
+
