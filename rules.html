@@ -25,19 +25,100 @@
   <p>Explainable heuristics used by PhishAID</p>
 </header>
 
-<div class="container">
+<div class="about-section">
+
+  <h1>PhishAID Detection Categories</h1>
+  <div class="subtitle">Rule-Based Phishing Detection Framework</div>
+
+  <p>
+    PhishAID uses a structured, rule-based detection framework designed to
+    identify phishing websites through explainable and deterministic checks.
+    The rules are grouped into logical categories based on the nature of the
+    phishing indicators they evaluate.
+  </p>
+
+  <p>
+    Each rule contributes to a cumulative risk score, which is used to classify
+    a website as <b>Legitimate</b>, <b>Suspicious</b>, or <b>Phishing</b>.
+    This approach ensures transparency and interpretability in every verdict.
+  </p>
+
+  <h2>Category A — URL & Transport-Level Rules</h2>
+  <p>
+    These rules analyze the structural and transport-layer characteristics of
+    URLs. Many phishing websites exhibit anomalies in protocol usage, domain
+    structure, or hosting patterns that can be detected without inspecting
+    page content.
+  </p>
+
   <ul>
-    <li>URL contains IP address</li>
-    <li>Excessive URL length</li>
-    <li>Suspicious keywords</li>
-    <li>Missing HTTPS</li>
-    <li>Multiple subdomains</li>
-    <li>Encoded characters</li>
-    <li>High entropy strings</li>
-    <li>Shortened URLs</li>
-    <li>Unusual port numbers</li>
-    <li>Look-alike domain patterns</li>
+    <li><b>Rule 1 – HTTPS Usage:</b> Checks whether the website uses a secure HTTPS protocol.</li>
+    <li><b>Rule 2 – Raw IP Detection:</b> Identifies URLs that use direct IP addresses instead of domain names.</li>
+    <li><b>Rule 3 – URL Length:</b> Flags excessively long URLs commonly used to hide malicious intent.</li>
+    <li><b>Rule 4 – @ Symbol:</b> Detects misuse of the “@” symbol to obscure the true destination.</li>
+    <li><b>Rule 5 – Subdomain Depth:</b> Evaluates abnormal nesting of subdomains.</li>
+    <li><b>Rule 6 – Suspicious TLD:</b> Identifies domains using commonly abused top-level domains.</li>
+    <li><b>Rule 7 – Certificate Age:</b> Uses SSL certificate age as a proxy for domain trustworthiness.</li>
+    <li><b>Rule 8 – Hyphen Usage:</b> Detects excessive or misleading hyphenated domain names.</li>
+    <li><b>Rule 9 – URL Shorteners:</b> Flags shortened URLs that obscure the final destination.</li>
+    <li><b>Rule 10 – Login Keywords:</b> Identifies URLs containing sensitive authentication-related terms.</li>
   </ul>
+
+  <h2>Category B — Identity Deception</h2>
+  <p>
+    Identity deception rules focus on techniques used by attackers to impersonate
+    trusted brands, organizations, or services through visual or lexical tricks.
+  </p>
+
+  <ul>
+    <li><b>Rule 21 – Unicode / Homoglyph Detection:</b> Identifies look-alike characters used to mimic trusted domains.</li>
+    <li><b>Rule 22 – Typosquatting:</b> Detects domains that closely resemble popular brands using edit-distance logic.</li>
+  </ul>
+
+  <h2>Category C — Structural Anomaly</h2>
+  <p>
+    Structural anomaly rules examine the internal structure and layout of a
+    website to identify cloning or imitation of legitimate pages.
+  </p>
+
+  <ul>
+    <li><b>Rule 18 – Clone Phishing:</b> Detects similarity between the target website and known legitimate domains using heuristic comparisons.</li>
+  </ul>
+
+  <h2>Category D — Semantic Intent</h2>
+  <p>
+    Semantic intent rules analyze the implied purpose of a URL or page content
+    to detect urgency-driven or fear-based phishing tactics.
+  </p>
+
+  <ul>
+    <li><b>Rule 30 – Semantic Phishing Intent:</b> Identifies suspicious phrases commonly associated with phishing attempts using heuristics (non-AI).</li>
+  </ul>
+
+  <h2>Reserved Rules and Future Expansion</h2>
+  <p>
+    Rules <b>11–17, 19, 20, 23, 25, 27–29</b> are part of the PhishAID framework but
+    are currently reserved for future implementation. These rules require more
+    advanced engineering, content analysis, or external data sources.
+  </p>
+
+  <p>
+    Reserving these rules allows PhishAID to evolve in phases while maintaining
+    a stable and explainable core detection engine in its current implementation.
+  </p>
+
+  <h2>Framework Design Philosophy</h2>
+  <p>
+    The rule framework prioritizes explainability over black-box accuracy.
+    Every triggered rule can be independently verified and justified, making
+    the system suitable for academic research, regulatory analysis, and
+    cybersecurity education.
+  </p>
+
+  <div class="footer-text">
+    © 2026 PhishAID.online
+  </div>
+
 </div>
 
 <footer class="footer">
