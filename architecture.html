@@ -22,38 +22,104 @@
 
 <hr>
 
-<div class="container">
+<div class="about-section">
+
   <h1>System Architecture</h1>
-
-<p>
-PhishAID uses a lightweight, serverless architecture designed for scalability
-and ease of deployment.
-</p>
-
-<ul>
-  <li>User Interface (HTML/CSS)</li>
-  <li>Rule Engine (JavaScript)</li>
-  <li>Static Hosting (Cloudflare Pages)</li>
-  <li>CDN & Security (Cloudflare)</li>
-</ul>
-
-<p>
-This architecture minimizes maintenance while ensuring high availability.
-</p>
-
+  <div class="subtitle">Serverless and Scalable Design for Rule-Based Phishing Detection</div>
 
   <p>
-    PhishAID follows a serverless, edge-hosted architecture using Cloudflare services.
+    PhishAID is designed using a lightweight, serverless architecture that
+    emphasizes scalability, low operational overhead, and high availability.
+    The architecture eliminates the need for traditional server management
+    while ensuring fast response times and reliable access.
   </p>
 
-  <ol>
-    <li>User submits URL via browser</li>
-    <li>Request passes through Cloudflare CDN</li>
-    <li>Rule engine evaluates URL</li>
-    <li>Verdict and warnings returned</li>
-  </ol>
+  <p>
+    The system is deployed using modern edge and cloud-native services, making
+    it suitable for academic demonstrations, real-world experimentation, and
+    large-scale public access.
+  </p>
+
+  <h2>Architectural Overview</h2>
+  <p>
+    PhishAID follows a client–edge–logic model where phishing detection is
+    performed through deterministic rules rather than computationally intensive
+    machine learning pipelines.
+  </p>
+
+  <p>
+    The core architectural components include:
+  </p>
+
+  <ul>
+    <li><b>User Interface (HTML/CSS)</b> – A lightweight browser-based interface for URL submission and result display.</li>
+    <li><b>Rule Engine (JavaScript)</b> – Implements phishing detection logic using predefined, explainable rules.</li>
+    <li><b>Static Hosting</b> – Frontend is deployed using Cloudflare Pages for global availability.</li>
+    <li><b>CDN & Security Layer</b> – Cloudflare provides caching, DDoS protection, and secure content delivery.</li>
+  </ul>
+
+  <h2>Serverless and Edge-Based Design</h2>
+  <p>
+    PhishAID follows a serverless architecture model, where detection logic is
+    executed without maintaining dedicated backend servers. Hosting the
+    application at the network edge reduces latency and improves performance
+    for users across different geographic regions.
+  </p>
+
+  <p>
+    This design choice also minimizes maintenance effort, simplifies deployment,
+    and allows the system to scale automatically based on demand.
+  </p>
+
+  <h2>Request Processing Flow</h2>
+  <p>
+    The step-by-step flow of a phishing detection request is as follows:
+  </p>
+
+  <ul>
+    <li>User submits a URL through the web interface.</li>
+    <li>The request is routed through the Cloudflare CDN.</li>
+    <li>The rule engine evaluates the URL against predefined phishing indicators.</li>
+    <li>A verdict along with rule-based warnings is generated.</li>
+    <li>The result is returned instantly to the user’s browser.</li>
+  </ul>
+
+  <h2>Security and Availability Considerations</h2>
+  <p>
+    Cloudflare’s CDN and security services provide an additional protection
+    layer, ensuring resilience against malicious traffic and denial-of-service
+    attacks. Static hosting further reduces the attack surface by eliminating
+    server-side vulnerabilities.
+  </p>
+
+  <p>
+    The architecture ensures:
+  </p>
+
+  <ul>
+    <li>High availability with minimal downtime</li>
+    <li>Global access with low latency</li>
+    <li>Secure and reliable content delivery</li>
+    <li>Easy extensibility for future enhancements</li>
+  </ul>
+
+  <h2>Future Architectural Extensions</h2>
+  <p>
+    While the current architecture focuses on rule-based detection, it is
+    designed to support future extensions such as backend APIs, logging
+    services, and optional AI-assisted analysis modules in later project phases.
+  </p>
+
+  <p>
+    This modular approach ensures that PhishAID can evolve without requiring a
+    complete redesign of the system architecture.
+  </p>
+
+  <div class="footer-text">
+    © 2026 PhishAID.online
+  </div>
+
 </div>
 
-<footer><hr>© 2026 PhishAID.online</footer>
 </body>
 </html>
