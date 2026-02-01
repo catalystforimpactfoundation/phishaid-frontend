@@ -22,39 +22,103 @@
 
 <hr>
 
-<div class="container">
- <h1>Methodology</h1>
+<div class="about-section">
 
-<p>
-PhishAID follows a rule-based detection methodology where URLs are analyzed
-against predefined phishing indicators.
-</p>
+  <h1>Methodology</h1>
+  <div class="subtitle">Rule-Based and Explainable Phishing Detection Framework</div>
 
-<ul>
-  <li>URL structure analysis</li>
-  <li>Protocol and domain inspection</li>
-  <li>Heuristic-based scoring</li>
-  <li>Explainable verdict generation</li>
-</ul>
+  <p>
+    PhishAID follows a structured, rule-based detection methodology designed to
+    identify phishing websites using transparent and explainable indicators.
+    Unlike black-box machine learning models, this approach ensures that every
+    detection decision can be traced back to specific, well-defined rules.
+  </p>
 
-<p>
-Each rule contributes to a cumulative score that determines the final verdict.
-</p>
+  <p>
+    The methodology focuses on analyzing the structural, lexical, and contextual
+    properties of URLs and domains that are commonly exploited in phishing
+    attacks. Each website is evaluated independently without relying on prior
+    training data or external reputation databases.
+  </p>
 
+  <h2>Overall Detection Flow</h2>
+  <p>
+    The detection process begins when a URL is submitted to the system. The URL
+    is parsed and examined across multiple rule categories. Each rule evaluates
+    a specific phishing indicator and contributes a weighted score if triggered.
+  </p>
 
-  <h3>Rule Categories</h3>
+  <p>
+    The cumulative score obtained from all triggered rules determines the final
+    classification of the website as <b>Legitimate</b>, <b>Suspicious</b>, or
+    <b>Phishing</b>.
+  </p>
+
+  <h2>Key Analysis Components</h2>
+  <p>
+    PhishAID applies multiple layers of analysis to ensure comprehensive
+    detection coverage:
+  </p>
+
   <ul>
-    <li>URL lexical analysis</li>
-    <li>IP-based URLs</li>
-    <li>Suspicious keywords</li>
-    <li>HTTPS and certificate checks</li>
-    <li>URL length and entropy</li>
+    <li><b>URL Structure Analysis</b> – Examines the lexical composition of URLs, including length, symbols, and subdomain depth.</li>
+    <li><b>Protocol and Domain Inspection</b> – Evaluates HTTPS usage, SSL certificate age, and domain format.</li>
+    <li><b>Heuristic-Based Scoring</b> – Assigns weighted penalties to triggered rules based on phishing severity.</li>
+    <li><b>Explainable Verdict Generation</b> – Produces a rule-wise breakdown explaining the final decision.</li>
+  </ul>
+
+  <h2>Rule Categories</h2>
+  <p>
+    The rule engine is organized into well-defined categories, each targeting a
+    specific phishing strategy:
+  </p>
+
+  <ul>
+    <li><b>URL Lexical Analysis</b> – Detection of abnormal URL patterns and deceptive structures.</li>
+    <li><b>IP-Based URL Detection</b> – Identification of URLs using raw IP addresses instead of domain names.</li>
+    <li><b>Suspicious Keyword Detection</b> – Detection of commonly abused terms such as “login”, “verify”, and “secure”.</li>
+    <li><b>HTTPS and Certificate Checks</b> – Validation of secure transport and certificate maturity.</li>
+    <li><b>URL Length and Entropy Analysis</b> – Identification of excessively long or complex URLs designed to confuse users.</li>
+  </ul>
+
+  <h2>Scoring and Verdict Logic</h2>
+  <p>
+    Each rule contributes a predefined negative score when triggered. Rules with
+    higher phishing relevance impose stronger penalties. The final verdict is
+    derived using threshold-based classification:
+  </p>
+
+  <ul>
+    <li><b>Legitimate</b> – No or minimal risk indicators detected</li>
+    <li><b>Suspicious</b> – Moderate risk indicators requiring user caution</li>
+    <li><b>Phishing</b> – Strong evidence of malicious intent</li>
   </ul>
 
   <p>
-    Each rule contributes to a cumulative score which determines the final verdict.
+    This scoring mechanism ensures consistency, interpretability, and resistance
+    to adversarial manipulation.
   </p>
+
+  <h2>Explainability and Transparency</h2>
+  <p>
+    A core strength of PhishAID lies in its explainability. For every analyzed
+    website, the system generates a detailed rule-wise evaluation table showing
+    which rules were triggered, their descriptions, and their individual score
+    contributions.
+  </p>
+
+  <p>
+    This transparency makes the system suitable for academic research, security
+    training, and regulatory environments where decision accountability is
+    essential.
+  </p>
+
+  <div class="footer-text">
+    © 2026 PhishAID.online
+  </div>
+
 </div>
+
 
 <footer><hr>© 2026 PhishAID.online</footer>
 </body>
