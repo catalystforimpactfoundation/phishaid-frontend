@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | PhishAID</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .dashboard-frame {
+      width: 100%;
+      height: 90vh;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <a href="/index.html">Home</a>
+  <a href="/dashboard.html">Dashboard</a>
+  <a href="/about.html">About</a>
+  <a href="/contact.html">Contact</a>
+</nav>
+
+<hr>
+
+<div class="container">
+  <h1>PhishAID Public Dashboard</h1>
+  <p>
+    This dashboard displays real-time phishing detection results generated
+    by the PhishAID rule-based detection engine.
+  </p>
+
+  <iframe
+    src="https://phishaid-backend-1013270519404.asia-south1.run.app/admin/dashboard"
+    class="dashboard-frame"
+    loading="lazy"
+  ></iframe>
+</div>
+
+<footer>
+  <hr>
+  © 2026 PhishAID.online — Academic Demonstration Project
+</footer>
+
+</body>
+</html>
