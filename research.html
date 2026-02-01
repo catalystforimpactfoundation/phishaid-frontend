@@ -22,28 +22,233 @@
 
 <hr>
 
-<div class="container">
-  <h1>Related Research</h1>
+<div class="about-section">
 
-<p>
-This project is informed by peer-reviewed research in phishing detection,
-URL analysis, and cybersecurity.
-</p>
+  <h1>Literature Review & Research Gap Analysis</h1>
+  <div class="subtitle">Academic Foundations and Motivation for PhishAID</div>
 
-<p>
-Relevant research papers are categorized year-wise (2020–2025),
-focusing on highly relevant and impactful studies.
-</p>
+  <p>
+    PhishAID is grounded in extensive academic research on phishing detection,
+    spanning heuristic-based approaches, machine learning techniques, and
+    user-behavior analysis. This section reviews key contributions from prior
+    literature and identifies critical gaps that motivated the design of
+    PhishAID.
+  </p>
 
+  <p>
+    The primary objective of this analysis is to justify the need for a
+    transparent, explainable, and deployable phishing detection system aligned
+    with academic and national cybersecurity requirements.
+  </p>
 
-  <ul>
-    <li>2025 – Advanced phishing detection techniques</li>
-    <li>2024 – Explainable phishing models</li>
-    <li>2023 – Rule-based vs ML detection</li>
-    <li>2022 – URL lexical analysis</li>
-    <li>2021 – Phishing domain lifecycle</li>
-    <li>2020 – Early phishing indicators</li>
-  </ul>
+  <h2>Table 1: Research Gaps Identified from Literature</h2>
+
+  <table class="rule-table">
+    <tr>
+      <th>Ref No.</th>
+      <th>Research Work</th>
+      <th>Focus of the Study</th>
+      <th>Identified Gap</th>
+      <th>How PhishAID Addresses the Gap</th>
+    </tr>
+
+    <tr>
+      <td>[1]</td>
+      <td>Mohammad et al. (2014)</td>
+      <td>Heuristic-based URL rules</td>
+      <td>Limited to basic heuristics. No explainable output.</td>
+      <td>Provides rule-wise evidence and transparent scoring.</td>
+    </tr>
+
+    <tr>
+      <td>[2]</td>
+      <td>Ma et al. (2009)</td>
+      <td>URL feature analysis</td>
+      <td>No real-time score visibility or reporting.</td>
+      <td>Displays per-rule scores and category-wise verdict.</td>
+    </tr>
+
+    <tr>
+      <td>[3]</td>
+      <td>Khonji et al. (2013)</td>
+      <td>Survey of phishing attacks</td>
+      <td>Theoretical focus without implementation.</td>
+      <td>Implements survey insights into a working system.</td>
+    </tr>
+
+    <tr>
+      <td>[4]</td>
+      <td>Afroz & Greenstadt</td>
+      <td>Visual / DOM similarity</td>
+      <td>High computational cost.</td>
+      <td>Uses lightweight structural heuristics.</td>
+    </tr>
+
+    <tr>
+      <td>[5]</td>
+      <td>NCIIPC</td>
+      <td>National cyber awareness</td>
+      <td>No technical detection framework.</td>
+      <td>Provides an academic technical implementation.</td>
+    </tr>
+
+    <tr>
+      <td>[6]</td>
+      <td>Gabrilovich & Gontmakher (2002)</td>
+      <td>Homograph attacks</td>
+      <td>Not integrated into phishing engines.</td>
+      <td>Integrated as Unicode detection (Rule 21).</td>
+    </tr>
+
+    <tr>
+      <td>[7]</td>
+      <td>Likhitha Lanke et al. (2025)</td>
+      <td>ML-based detection</td>
+      <td>Black-box and non-explainable.</td>
+      <td>Phase 1 uses explainable rule logic.</td>
+    </tr>
+
+    <tr>
+      <td>[8]</td>
+      <td>Learning to Detect Phishing URLs (2014)</td>
+      <td>ML lexical features</td>
+      <td>Hard to justify decisions.</td>
+      <td>Simulates logic using fixed heuristics.</td>
+    </tr>
+
+    <tr>
+      <td>[9]</td>
+      <td>Zhang et al. (2023)</td>
+      <td>URL + HTML features</td>
+      <td>Requires page rendering.</td>
+      <td>Phase 1 avoids HTML loading.</td>
+    </tr>
+
+    <tr>
+      <td>[10]</td>
+      <td>Alsharnouby et al. (2015)</td>
+      <td>User behavior study</td>
+      <td>No detection mechanism.</td>
+      <td>Implements warning-based verdicts.</td>
+    </tr>
+  </table>
+
+  <h2>Table 2: Rule-Based / Feature-Based Phishing Research Papers</h2>
+
+  <table class="rule-table">
+    <tr>
+      <th>Ref</th>
+      <th>Authors</th>
+      <th>Paper Title</th>
+      <th>Publication</th>
+      <th>Year</th>
+    </tr>
+
+    <tr>
+      <td>[1]</td>
+      <td>Mohammad et al.</td>
+      <td>Heuristic-based phishing detection</td>
+      <td>IEEE ICC</td>
+      <td>2014</td>
+    </tr>
+
+    <tr>
+      <td>[2]</td>
+      <td>Ma et al.</td>
+      <td>Phishing website detection using URL features</td>
+      <td>ACM CCS</td>
+      <td>2009</td>
+    </tr>
+
+    <tr>
+      <td>[3]</td>
+      <td>Khonji et al.</td>
+      <td>A survey on phishing attacks</td>
+      <td>Computers & Security</td>
+      <td>2013</td>
+    </tr>
+
+    <tr>
+      <td>[4]</td>
+      <td>Afroz & Greenstadt</td>
+      <td>PhishZoo</td>
+      <td>IEEE</td>
+      <td>2010</td>
+    </tr>
+
+    <tr>
+      <td>[5]</td>
+      <td>NCIIPC</td>
+      <td>National Cyber Infrastructure Protection</td>
+      <td>Govt. of India</td>
+      <td>—</td>
+    </tr>
+  </table>
+
+  <h2>Table 3: Research Contributions Mapped to PhishAID</h2>
+
+  <table class="rule-table">
+    <tr>
+      <th>Ref</th>
+      <th>Research Paper</th>
+      <th>Contribution</th>
+      <th>Related Rules / Category</th>
+    </tr>
+
+    <tr>
+      <td>[1]</td>
+      <td>Mohammad et al. (2014)</td>
+      <td>Validated heuristic URL rules</td>
+      <td>Rules 2, 3, 4 – Category A</td>
+    </tr>
+
+    <tr>
+      <td>[2]</td>
+      <td>Ma et al. (2009)</td>
+      <td>Lexical URL feature logic</td>
+      <td>Rules 3, 5 – Category A</td>
+    </tr>
+
+    <tr>
+      <td>[4]</td>
+      <td>Afroz & Greenstadt</td>
+      <td>Clone phishing inspiration</td>
+      <td>Rule 18 – Structural</td>
+    </tr>
+
+    <tr>
+      <td>[6]</td>
+      <td>Gabrilovich & Gontmakher</td>
+      <td>Unicode normalization</td>
+      <td>Rule 21 – Identity</td>
+    </tr>
+
+    <tr>
+      <td>[8]</td>
+      <td>Learning to Detect Phishing URLs</td>
+      <td>Semantic pattern ideas</td>
+      <td>Rule 30 – Semantic</td>
+    </tr>
+  </table>
+
+  <h2>Summary</h2>
+  <p>
+    The literature clearly indicates a trade-off between accuracy and
+    explainability in phishing detection systems. While machine learning
+    approaches dominate recent research, they often fail to provide transparent
+    reasoning.
+  </p>
+
+  <p>
+    PhishAID bridges this gap by implementing academically validated phishing
+    indicators into an explainable, rule-based system suitable for education,
+    evaluation, and future AI integration.
+  </p>
+
+  <div class="footer-text">
+    © 2026 PhishAID.online
+  </div>
+
 </div>
 
 <footer><hr>© 2026 PhishAID.online</footer>
