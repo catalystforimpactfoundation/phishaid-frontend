@@ -1,43 +1,10 @@
+Dummy:
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Dashboard | PhishAID</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="/assets/css/style.css">
-
-  <style>
-    /* URL column LEFT aligned */
-    table td.url-column {
-      text-align: left;
-      padding-left: 10px;
-      word-break: break-all;
-    }
-
-    /* Count button */
-    .count-box {
-      margin: 15px 0;
-    }
-
-    .count-btn {
-      background-color: #0d6efd;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      margin-right: 10px;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: default;
-    }
-
-    .datetime {
-      font-size: 14px;
-      margin-top: 10px;
-      color: #333;
-    }
-  </style>
 </head>
 
 <body>
@@ -49,23 +16,9 @@
   <a href="/contact.html">Contact</a>
 </nav>
 
-<!-- COUNT SECTION -->
-<div class="count-box">
-  <button class="count-btn">Total: <span id="totalCount">0</span></button>
-  <button class="count-btn">Legitimate: <span id="legitCount">0</span></button>
-  <button class="count-btn">Suspicious: <span id="suspiciousCount">0</span></button>
-  <button class="count-btn">Phishing: <span id="phishingCount">0</span></button>
-
-  <div class="datetime">
-    Query Time: <span id="queryTime"></span>
-  </div>
-</div>
-
-<!-- DASHBOARD -->
 <iframe
-  id="dashboardFrame"
   src="https://phishaid-backend-1013270519404.asia-south1.run.app/admin/dashboard"
-  style="width:100%; height:calc(100vh - 200px); border:none;"
+  style="width:100%; height:100vh; border:none;"
   loading="lazy"
 ></iframe>
 
@@ -73,41 +26,6 @@
   <hr>
   © 2026 PhishAID.online — Academic Demonstration Project
 </footer>
-
-<script>
-  // Local date & time from user system
-  const now = new Date();
-  document.getElementById("queryTime").innerText =
-    now.toLocaleDateString() + " " + now.toLocaleTimeString();
-
-  // Count logic (runs after iframe loads)
-  const iframe = document.getElementById("dashboardFrame");
-
-  iframe.onload = function () {
-    try {
-      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-      const rows = iframeDoc.querySelectorAll("table tbody tr");
-
-      let legit = 0, suspicious = 0, phishing = 0;
-
-      rows.forEach(row => {
-        const verdictCell = row.innerText.toLowerCase();
-
-        if (verdictCell.includes("legitimate")) legit++;
-        else if (verdictCell.includes("suspicious")) suspicious++;
-        else if (verdictCell.includes("phishing")) phishing++;
-      });
-
-      document.getElementById("totalCount").innerText = rows.length;
-      document.getElementById("legitCount").innerText = legit;
-      document.getElementById("suspiciousCount").innerText = suspicious;
-      document.getElementById("phishingCount").innerText = phishing;
-
-    } catch (e) {
-      console.log("Cross-origin restriction: counting disabled");
-    }
-  };
-</script>
 
 </body>
 </html>
