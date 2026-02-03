@@ -4,26 +4,42 @@
   <meta charset="UTF-8">
   <title>Dashboard | PhishAID</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <style>
-    /* Make space below navbar */
+    /* Container below navbar */
     .dashboard-container {
-      margin-top: 10px;
-      height: calc(100vh - 140px);
+      margin-top: 0;
+      height: calc(100vh - 120px);
     }
 
+    /* Iframe full width */
     .dashboard-frame {
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    /* LEFT align URL column (effective if backend uses this class or inline table) */
+    table td.url-column,
+    table th.url-column {
+      text-align: left !important;
+      padding-left: 10px;
+      word-break: break-all;
+    }
+
+    /* Generic fallback: first column left aligned */
+    table td:first-child,
+    table th:first-child {
+      text-align: left;
     }
   </style>
 </head>
 
 <body>
 
-<!-- TOP NAVIGATION -->
+<!-- TOP NAVIGATION BAR -->
 <nav class="navbar">
   <a href="/index.html">Home</a>
   <a href="/about.html">About</a>
@@ -42,8 +58,8 @@
   <iframe
     class="dashboard-frame"
     src="https://phishaid-backend-1013270519404.asia-south1.run.app/admin/dashboard"
-    loading="lazy"
-  ></iframe>
+    loading="lazy">
+  </iframe>
 </div>
 
 <footer>
